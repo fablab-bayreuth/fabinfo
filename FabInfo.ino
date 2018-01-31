@@ -21,7 +21,6 @@
 #include "helpers.h"
 #include "global.h"
 #include <MD_Parola.h>
-//#include <MD_MAX72xx.h>
 
 // NOTE: MD_MAX72xx library must be installed and configured for the LED
 // matrix type being used. Refer documentation included in the MD_MAX72xx
@@ -30,7 +29,6 @@
 
 // define program settings
 #define PGNV "0.1"
-#define DEBUG  0
 #define ACCESS_POINT_NAME  "FabInfo"
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 600  // Defines the Time in Seconds, when the Admin-Mode will be diabled
@@ -46,17 +44,6 @@
 #define CLK_PIN   D5 // or SCK
 #define DATA_PIN  D7 // or MOSI
 #define CS_PIN    D4 // or LD,SS
-
-// PAROLA Turn on debug statements to the serial output
-#if  DEBUG
-#define PRINT(s, x) { Serial.print(F(s)); Serial.print(x); }
-#define PRINTS(x) Serial.print(F(x))
-#define PRINTX(x) Serial.println(x, HEX)
-#else
-#define PRINT(s, x)
-#define PRINTS(x)
-#define PRINTX(x)
-#endif
 
 // PAROLA HARDWARE SPI
 MD_Parola P = MD_Parola(CS_PIN, MAX_DEVICES);
