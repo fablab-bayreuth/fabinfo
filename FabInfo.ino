@@ -41,23 +41,10 @@
 // CS or LD   D4     HSPICS or HCS (D8)
 // CLK        D5     CLK or HCLK
 #define MAX_DEVICES 8
-#define CLK_PIN   D5 // or SCK
-#define DATA_PIN  D7 // or MOSI
-#define CS_PIN    D4 // or LD,SS
+#define CS_PIN      D8 // or LD,SS
 
 // PAROLA HARDWARE SPI
 MD_Parola P = MD_Parola(CS_PIN, MAX_DEVICES);
-// SOFTWARE SPI
-//MD_Parola P = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
-
-/*
-// PAROLA WiFi login parameters - network name and password
-const char* ssid = "SSID";
-const char* password = "PWD";
-
-// PAROLA WiFi Server object and parameters
-WiFiServer server(80);
-*/
 
 // PAROLA Scrolling parameters
 uint8_t frameDelay = 25;  // default frame delay value
@@ -366,96 +353,10 @@ void getData(char *szMesg, uint8_t len)
 }
 
 
-
-void handleWiFi(void)
-{
-  static enum { S_IDLE, S_WAIT_CONN, S_READ, S_EXTRACT, S_RESPONSE, S_DISCONN } state = S_IDLE;
-  static char szBuf[1024];
-  static uint16_t idxBuf = 0;
-  static WiFiClient client;
-  static uint32_t timeStart;
-
-  switch (state)
-  {
-  case S_IDLE:   // initialise
-    PRINTS("\nS_IDLE");
-    idxBuf = 0;
-    state = S_WAIT_CONN;
-    break;
-
-  case S_WAIT_CONN:   // waiting for connection
-  {
-    client = server.available();
-    if (!client) break;
-    if (!client.connected()) break;
-
-#if DEBUG
-    char szTxt[20];
-    sprintf(szTxt, "%03d:%03d:%03d:%03d", client.remoteIP()[0], client.remoteIP()[1], client.remoteIP()[2], client.remoteIP()[3]);
-    PRINT("\nNew client @ ", szTxt);
-#endif
-
-    timeStart = millis();
-    state = S_READ;
-  }
-  break;
-
-  case S_READ: // get the first line of data
-    PRINTS("\nS_READ ");
-
-    while (client.available())
-    {
-      char c = client.read();
-
-      if ((c == '\r') || (c == '\n'))
-      {
-        szBuf[idxBuf] = '\0';
-        client.flush();
-        PRINT("\nRecv: ", szBuf);
-        state = S_EXTRACT;
-      }
-      else
-        szBuf[idxBuf++] = (char)c;
-    }
-    if (millis() - timeStart > 1000)
-    {
-      PRINTS("\nWait timeout");
-      state = S_DISCONN;
-    }
-    break;
-
-  case S_EXTRACT: // extract data
-    PRINTS("\nS_EXTRACT");
-    // Extract the string from the message if there is one
-    getData(szBuf, BUF_SIZE);
-    state = S_RESPONSE;
-    break;
-
-  case S_RESPONSE: // send the response to the client
-    PRINTS("\nS_RESPONSE");
-    // Return the response to the client (web page)
-    client.print(WebResponse);
-    client.print(WebPage);
-    state = S_DISCONN;
-    break;
-
-  case S_DISCONN: // disconnect client
-    PRINTS("\nS_DISCONN");
-    client.flush();
-    client.stop();
-    state = S_IDLE;
-    break;
-
-  default:  state = S_IDLE;
-  }
+void setDisplayMessage(String message) {
+  newMessage = message;
+  newMessageAvailabe = true;
 }
-
-
-
-
-
-
-
 
 void loop ( void ) {
   // Als erstes wieder eine evtl. neue Seite "bereitstellen", danach werden ggf. Admin abgeschaltet, NTP aktualisiert etc.
