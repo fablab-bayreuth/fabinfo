@@ -208,7 +208,6 @@ void WriteConfig()
 	EEPROM.write(304,config.TurnOffHour);
 	EEPROM.write(305,config.TurnOffMinute);	
 
-	EEPROM.write(309,config.InfoOn); // currently not used
 	EEPROM.write(310,config.LEDOn);
 	EEPROM.write(311,config.SensRefreshTime);
 	WriteStringToEEPROM(313,config.DeviceName);
@@ -265,7 +264,6 @@ boolean ReadConfig()
 		config.TurnOffHour = EEPROM.read(304);
 		config.TurnOffMinute = EEPROM.read(305);
 
-		config.InfoOn = EEPROM.read(309); // currently not used
 		config.LEDOn = EEPROM.read(310);
 		config.SensRefreshTime = EEPROM.read(311);
 		config.DeviceName= ReadStringFromEEPROM(313);

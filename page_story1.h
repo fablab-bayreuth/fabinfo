@@ -10,7 +10,9 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<a href="story1.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Story Board 1</strong>
+<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Story Board 1</strong>&nbsp;&nbsp;
+<a href="admin.html"  class="btn btn--s"><</a>&nbsp;
+<a href="story2.html"  class="btn btn--s">></a>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
@@ -116,7 +118,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 window.onload = function ()
 {
-	  setValues("/admin/generalvalues");
+	  setValues("/admin/story1values");
 }
 
 </script>
@@ -125,16 +127,7 @@ window.onload = function ()
 )=====";
 
 
-// Functions for this Page
-void send_devicename_value_html()
-{
-		
-	String values ="";
-	values += "devicename|" + (String) config.DeviceName + "|div\n";
-	server.send ( 200, "text/plain", values);
-	Serial.println(__FUNCTION__); 
-	
-}
+
 
 void send_story1_html()
 {

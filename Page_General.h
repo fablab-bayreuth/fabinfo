@@ -10,7 +10,7 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<a href="admin.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>FabInfo Konfiguration</strong>
+<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>FabInfo Konfiguration</strong>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >

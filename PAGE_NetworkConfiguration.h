@@ -6,7 +6,7 @@
 const char PAGE_NetworkConfiguration[] PROGMEM = R"=====(
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<a href="admin.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Netzwerk Konfiguration</strong>
+<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Netzwerk Konfiguration</strong>
 <hr>
 Verbindung zum Router / W-LAN Einstellungen:<br>
 <form action="" method="get">

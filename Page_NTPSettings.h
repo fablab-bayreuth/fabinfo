@@ -7,7 +7,7 @@ const char PAGE_NTPConfiguration[] PROGMEM = R"=====(
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<a href="admin.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>NTP Einstellungen</strong>
+<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>NTP Einstellungen</strong>
 <hr>
 <form action="" method="get">
 <table border="0"  cellspacing="0" cellpadding="3" >

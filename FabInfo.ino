@@ -54,7 +54,7 @@
 #include "page_ntpsettings.h"
 #include "page_information.h"
 #include "page_general.h"
-// #include "page_story1.h"
+#include "page_story1.h"
 #include "page_networkconfiguration.h"
 #include "page_fabinfo.h"
 
@@ -101,7 +101,6 @@ void setup ( void ) {
     config.SensCalMin = 60;
     config.SensCalMax = 900;
     config.SensCalc = 100;
-    config.InfoOn = false; // currently not used -> LED
     config.LEDOn = true; // enable switch LED on
     config.SensRefreshTime = 1;
     WriteConfig();
