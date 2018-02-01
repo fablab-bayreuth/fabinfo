@@ -10,7 +10,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Story Board 1</strong>&nbsp;&nbsp;
+<a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Szene 01</strong>&nbsp;&nbsp;
 <a href="admin.html"  class="btn btn--s"><</a>&nbsp;
 <a href="story2.html"  class="btn btn--s">></a>
 <hr>
@@ -140,21 +140,7 @@ void send_story1_html()
     
 		String temp = "";
 		for ( uint8_t i = 0; i < server.args(); i++ ) {
-			if (server.argName(i) == "devicename") config.DeviceName = urldecode(server.arg(i)); 
-      if (server.argName(i) == "iotenabled") config.IoTOn = true; 
-      if (server.argName(i) == "iotusername") config.IoTUserName = urldecode(server.arg(i)); 
-      if (server.argName(i) == "iotdeviceid") config.IoTDeviceID = urldecode(server.arg(i)); 
-      if (server.argName(i) == "iotcredential") config.IoTCredential = urldecode(server.arg(i)); 
- 			if (server.argName(i) == "tonenabled") config.AutoTurnOn = true; 
-			if (server.argName(i) == "tonhour") config.TurnOnHour =  server.arg(i).toInt(); 
-			if (server.argName(i) == "tonminute") config.TurnOnMinute =  server.arg(i).toInt(); 
-			if (server.argName(i) == "toffhour") config.TurnOffHour =  server.arg(i).toInt(); 
-			if (server.argName(i) == "toffminute") config.TurnOffMinute =  server.arg(i).toInt(); 
-			if (server.argName(i) == "ledenabled") config.LEDOn = true; // switch enabled status LED
-			if (server.argName(i) == "sensrefreshtime") config.SensRefreshTime =  server.arg(i).toInt(); 
-			if (server.argName(i) == "senscalmax") config.SensCalMax =  server.arg(i).toInt(); 
-      if (server.argName(i) == "senscalmin") config.SensCalMin =  server.arg(i).toInt();  
-      if (server.argName(i) == "senscalc") config.SensCalc =  server.arg(i).toInt();         
+
 		}
 		WriteConfig();
     ConfigureIoT();
@@ -170,22 +156,5 @@ void send_story1_html()
 
 void send_story1_configuration_values_html()
 {
-	String values ="";
-	values += "devicename|" +  (String)  config.DeviceName +  "|input\n";
-  values += "iotenabled|" +  (String) (config.IoTOn ? "checked" : "") + "|chk\n";
-  values += "iotusername|" +  (String)  config.IoTUserName +  "|input\n";
-  values += "iotdeviceid|" +  (String)  config.IoTDeviceID +  "|input\n";
-  values += "iotcredential|" +  (String)  config.IoTCredential +  "|input\n"; 
-	values += "tonhour|" +  (String)  config.TurnOnHour +  "|input\n";
-	values += "tonminute|" +   (String) config.TurnOnMinute +  "|input\n";
-	values += "toffhour|" +  (String)  config.TurnOffHour +  "|input\n";
-	values += "toffminute|" +   (String)  config.TurnOffMinute +  "|input\n";
-	values += "tonenabled|" +  (String) (config.AutoTurnOn ? "checked" : "") + "|chk\n";
-	values += "ledenabled|" +  (String) (config.LEDOn ? "checked" : "") + "|chk\n";
-	values += "sensrefreshtime|" +   (String)  config.SensRefreshTime +  "|input\n";
-	values += "senscalmax|" +   (String)  config.SensCalMax +  "|input\n";
-  values += "senscalmin|" +   (String)  config.SensCalMin +  "|input\n";
-  values += "senscalc|" +   (String)  config.SensCalc +  "|input\n";
-	server.send ( 200, "text/plain", values);
-	Serial.println(__FUNCTION__); 
+
 }

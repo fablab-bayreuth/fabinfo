@@ -36,7 +36,7 @@ struct strConfig {
 	long Update_Time_Via_NTP_Every;
 	long timezone;
 	boolean daylight;
-	String DeviceName;
+	String IoTRLS;
   boolean IoTOn;
   String IoTUserName;
   String IoTDeviceID;
@@ -210,7 +210,7 @@ void WriteConfig()
 
 	EEPROM.write(310,config.LEDOn);
 	EEPROM.write(311,config.SensRefreshTime);
-	WriteStringToEEPROM(313,config.DeviceName);
+	WriteStringToEEPROM(313,config.IoTRLS);
 
   EEPROM.write(345,config.IoTOn);
   WriteStringToEEPROM(346,config.IoTUserName);
@@ -266,7 +266,7 @@ boolean ReadConfig()
 
 		config.LEDOn = EEPROM.read(310);
 		config.SensRefreshTime = EEPROM.read(311);
-		config.DeviceName= ReadStringFromEEPROM(313);
+		config.IoTRLS= ReadStringFromEEPROM(313);
 
     config.IoTOn = EEPROM.read(345);
     config.IoTUserName= ReadStringFromEEPROM(346);

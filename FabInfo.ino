@@ -88,10 +88,10 @@ void setup ( void ) {
     config.Update_Time_Via_NTP_Every = 1;
     config.timezone = 10;
     config.daylight = true;
-    config.DeviceName = "Not Named FabInfo";
+    config.IoTRLS = "Not Named IoT Resource";
     config.IoTOn = false;
     config.IoTUserName = "Not Named IoT User";
-    config.IoTDeviceID = "Not Named IoT ID";
+    config.IoTDeviceID = "Not Named IoT Device";
     config.IoTCredential = "Not Named IoT Credential";
     config.AutoTurnOn = false;
     config.TurnOffHour = 0;
@@ -188,7 +188,7 @@ void setup ( void ) {
   
   server.on ( "/admin/generalvalues", send_general_configuration_values_html);
   
-  server.on ( "/admin/devicename",     send_devicename_value_html);
+  server.on ( "/admin/IoTRLS",     send_IoTRLS_value_html);
 
   server.onNotFound ( []() {
     Serial.println("Page Not Found");

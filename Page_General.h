@@ -15,10 +15,6 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
 <tr>
-	<td align="right">Gerätename:</td>
-	<td><input type="text" id="devicename" name="devicename" value=""></td>
-</tr>
-<tr>
   <td align="right"> IoT Client aktiv:</td>
   <td><input type="checkbox" id="iotenabled" name="iotenabled"></td>
 </tr>
@@ -34,7 +30,10 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
   <td align="right">IoT Credential:</td>
   <td><input type="text" id="iotcredential" name="iotcredential" value=""></td>
 </tr>
-
+<tr>
+  <td align="right">IoT Resource Light Sensor:</td>
+  <td><input type="text" id="IoTRLS" name="IoTRLS" value=""></td>
+</tr>
 <tr>
 	<td align="left" colspan="2"><hr></td>
 </tr>
@@ -126,11 +125,11 @@ window.onload = function ()
 
 
 // Functions for this Page
-void send_devicename_value_html()
+void send_IoTRLS_value_html()
 {
 		
 	String values ="";
-	values += "devicename|" + (String) config.DeviceName + "|div\n";
+	values += "IoTRLS|" + (String) config.IoTRLS + "|div\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
 	
@@ -147,7 +146,7 @@ void send_general_html()
     
 		String temp = "";
 		for ( uint8_t i = 0; i < server.args(); i++ ) {
-			if (server.argName(i) == "devicename") config.DeviceName = urldecode(server.arg(i)); 
+			if (server.argName(i) == "IoTRLS") config.IoTRLS = urldecode(server.arg(i)); 
       if (server.argName(i) == "iotenabled") config.IoTOn = true; 
       if (server.argName(i) == "iotusername") config.IoTUserName = urldecode(server.arg(i)); 
       if (server.argName(i) == "iotdeviceid") config.IoTDeviceID = urldecode(server.arg(i)); 
@@ -178,7 +177,7 @@ void send_general_html()
 void send_general_configuration_values_html()
 {
 	String values ="";
-	values += "devicename|" +  (String)  config.DeviceName +  "|input\n";
+	values += "IoTRLS|" +  (String)  config.IoTRLS +  "|input\n";
   values += "iotenabled|" +  (String) (config.IoTOn ? "checked" : "") + "|chk\n";
   values += "iotusername|" +  (String)  config.IoTUserName +  "|input\n";
   values += "iotdeviceid|" +  (String)  config.IoTDeviceID +  "|input\n";
