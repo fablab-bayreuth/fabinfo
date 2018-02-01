@@ -2,7 +2,7 @@
 //  HTML PAGE
 //
 
-const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
+const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,7 +10,7 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<a href="admin.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>FabInfo Konfiguration</strong>
+<a href="story1.html"  class="btn btn--s"><</a>&nbsp;&nbsp;<strong>Story Board 1</strong>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
@@ -136,7 +136,7 @@ void send_devicename_value_html()
 	
 }
 
-void send_general_html()
+void send_story1_html()
 {
 	
 	if (server.args() > 0 )  // Save Settings
@@ -169,13 +169,13 @@ void send_general_html()
     Sens_Value = -1;
 	}
 
-	server.send_P ( 200, "text/html", PAGE_AdminGeneralSettings ); 
+	server.send_P ( 200, "text/html", PAGE_Story1Settings ); 
 	Serial.println(__FUNCTION__); 
 	
 	
 }
 
-void send_general_configuration_values_html()
+void send_story1_configuration_values_html()
 {
 	String values ="";
 	values += "devicename|" +  (String)  config.DeviceName +  "|input\n";

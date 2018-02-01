@@ -24,7 +24,7 @@ border: 1px solid #6f0000;
 transition: background-color 0.3s, color 0.3s, border 0.3s; 
 }
 	.btn:active {  
-color: #e65208;  
+color: #cd2900;  
 border: 1px solid #6f0000;  
 		-webkit-transition: background-color 0.3s, color 0.3s, border 0.3s;  
 transition: background-color 0.3s, color 0.3s, border 0.3s; 
@@ -49,12 +49,12 @@ width: 100%;
 	} 
 	.btn--red:link, .btn--red:visited {
 color: #fff;  
-		background-color: #788B0B; 
+		background-color: #6f0000; 
 	}
 	.btn--red:hover, .btn--red:focus {
 color: #fff !important;  
-		background-color: #788B0B;  
-		border-color: #079E07; 
+		background-color: #e65208;  
+		border-color: #6f0000; 
 	}
 	.btn--red:active {
 color: #fff; 

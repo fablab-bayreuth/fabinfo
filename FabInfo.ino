@@ -13,6 +13,7 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <MD_Parola.h>
 #include <Ticker.h>
 #include <EEPROM.h>
 #include <WiFiUdp.h>
@@ -20,7 +21,6 @@
 #include <ThingerWifi.h>
 #include "helpers.h"
 #include "global.h"
-#include <MD_Parola.h>
 
 // NOTE: MD_MAX72xx library must be installed and configured for the LED
 // matrix type being used. Refer documentation included in the MD_MAX72xx
@@ -33,7 +33,6 @@
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 600  // Defines the Time in Seconds, when the Admin-Mode will be diabled
 
-
 // PAROLA define setting of FC-16 LED matrix modules and SPI
 // Vcc       3v3     LED matrix work at 3.3V
 // GND       GND     GND
@@ -43,38 +42,21 @@
 #define MAX_DEVICES 8
 #define CS_PIN      D8 // or LD,SS
 
-// PAROLA HARDWARE SPI
-MD_Parola P = MD_Parola(CS_PIN, MAX_DEVICES);
-
-// PAROLA Scrolling parameters
-uint8_t frameDelay = 25;  // default frame delay value
-textEffect_t  scrollEffect = PA_SCROLL_LEFT;
-
-// PAROLA Global message buffers shared by Wifi and Scrolling functions
-#define BUF_SIZE  512
-char curMessage[BUF_SIZE];
-char newMessage[BUF_SIZE];
-bool newMessageAvailable = false;
-
 
 /*
   Include the HTML, STYLE and Script "Pages"
 */
-#include "Page_Root.h"
-#include "Page_Admin.h"
-#include "Page_Script.js.h"
-#include "Page_Chart.h"
-#include "Page_Style.css.h"
-#include "Page_NTPsettings.h"
-#include "Page_Information.h"
-#include "Page_General.h"
-#include "PAGE_NetworkConfiguration.h"
-#include "PAGE_FabInfo.h"
-
-
-
-
-
+#include "page_root.h"
+#include "page_admin.h"
+#include "page_script.js.h"
+#include "page_chart.h"
+#include "page_style.css.h"
+#include "page_ntpsettings.h"
+#include "page_information.h"
+#include "page_general.h"
+// #include "page_story1.h"
+#include "page_networkconfiguration.h"
+#include "page_fabinfo.h"
 
 void setup ( void ) {
   EEPROM.begin(512);
@@ -83,28 +65,21 @@ void setup ( void ) {
 
   pinMode(BUILTIN_LED, OUTPUT);
 
-
-// set pins Auto Light Sensor(ALS)
-// LDRV       D3      LDR 3.3V
-// LDRG       D2      LDG GND
-// LDRA       A0      LDR analog
-  pinMode(A0, INPUT); // Auto Light Sensor Analog Output
-  pinMode(D2, OUTPUT); // Auto Light Sensor GND
-  pinMode(D3, OUTPUT); // Auto Light Sensor VCC
-  digitalWrite(D2, LOW);
-  digitalWrite(D3, LOW); // Auto Light Sensor OFF
-
-// set pins DHT-11 Sensor(TMP & HUM)
-// DHTD       D1       DHT-11 Data
-  pinMode(D1, INPUT); // DHT-11 Data Digital Input
+  // set Solide Moisture Sensor (SMS)
+  pinMode(A0, INPUT); // Moisture Sensor Analog Output
+  pinMode(D0, INPUT); // Moisture Sensor Digital Output
+  pinMode(D5, OUTPUT); // Moisture Sensor GND
+  pinMode(D6, OUTPUT); // Moisture Sensor VCC
+  digitalWrite(D5, LOW);
+  digitalWrite(D6, LOW); // Sensor OFF
 
   Serial.printf("Starting FabInfo %s\n", PGNV);
 
   if (!ReadConfig())
   {
     // DEFAULT CONFIG
-    config.ssid = "SSID";
-    config.password = "PWD";
+    config.ssid = "ArduinoGast";
+    config.password = "arduinoUNO123";
     config.dhcp = true;
     config.IP[0] = 192; config.IP[1] = 168; config.IP[2] = 1; config.IP[3] = 100;
     config.Netmask[0] = 255; config.Netmask[1] = 255; config.Netmask[2] = 255; config.Netmask[3] = 0;
@@ -118,7 +93,6 @@ void setup ( void ) {
     config.IoTUserName = "Not Named IoT User";
     config.IoTDeviceID = "Not Named IoT ID";
     config.IoTCredential = "Not Named IoT Credential";
-    config.AutoTurnOff = false; // currently not used
     config.AutoTurnOn = false;
     config.TurnOffHour = 0;
     config.TurnOffMinute = 0;
@@ -130,7 +104,6 @@ void setup ( void ) {
     config.InfoOn = false; // currently not used -> LED
     config.LEDOn = true; // enable switch LED on
     config.SensRefreshTime = 1;
-    config.MinWarn = 0; // currently not used
     WriteConfig();
     Serial.println("General config applied");
   }
@@ -142,7 +115,7 @@ void setup ( void ) {
 
     char buffer[33];
     sprintf(buffer, "%s_%06x", ACCESS_POINT_NAME, ESP.getChipId());
-    
+ 
     WiFi.softAP(buffer, ACCESS_POINT_PASSWORD);
   }
   else
@@ -152,6 +125,7 @@ void setup ( void ) {
   ConfigureWifi();
 
   server.on ( "/", processFabInfo  );
+  
   server.on ( "/admin/filldynamicdata", filldynamicdata );
 
   server.on ( "/favicon.ico",   []() {
@@ -165,198 +139,76 @@ void setup ( void ) {
     sendCacheHeader();
     server.send_P ( 200, "text/html", PAGE_AdminMainPage );
   }  );
+  
   server.on ( "/config.html", send_network_configuration_html );
+
+  server.on ( "/story1.html", send_story1_html );
+  
   server.on ( "/info.html", []() {
     Serial.println("info.html");
     sendCacheHeader();
     server.send_P ( 200, "text/html", PAGE_Information );
   }  );
+  
+  server.on ( "/story1values.html", send_story1_configuration_values_html );
+  
   server.on ( "/ntp.html", send_NTP_configuration_html  );
+  
   server.on ( "/general.html", send_general_html  );
-  server.on ( "/FabInfo.html", []() {
+  
+  server.on ( "/fabinfo.html", []() {
     sendCacheHeader();
     server.send_P ( 200, "text/html", PAGE_FabInfo );
   } );
+  
   server.on ( "/style.css", []() {
     Serial.println("style.css");
     sendCacheHeader();
     server.send_P ( 200, "text/css", PAGE_Style_css );
   } );
+  
   server.on ( "/microajax.js", []() {
     Serial.println("microajax.js");
     sendCacheHeader();
     server.send_P ( 200, "application/javascript", PAGE_microajax_js );
   } );
+  
   server.on ( "/chart.min.js", []() {
     Serial.println("chart.min.js");
     sendCacheHeader();
     server.send_P ( 200, "application/javascript", PAGE_chart_js );
   } );
+  
   server.on ( "/admin/values", send_network_configuration_values_html );
+  
   server.on ( "/admin/connectionstate", send_connection_state_values_html );
+  
   server.on ( "/admin/sensrefreshtimes", send_information_values_html );
+  
   server.on ( "/admin/ntpvalues", send_NTP_configuration_values_html );
+  
   server.on ( "/admin/generalvalues", send_general_configuration_values_html);
+  
   server.on ( "/admin/devicename",     send_devicename_value_html);
 
   server.onNotFound ( []() {
     Serial.println("Page Not Found");
     server.send ( 400, "text/html", "404 Error ... Page not found" );
   }  );
+  
   server.begin();
   Serial.println( "HTTP server started" );
   tkSecond.attach(1, Second_Tick);
   UDPNTPClient.begin(2390);  // Port for NTP receive
+
+  // Ausgabe der eigenen Client IP-Adresse
+  char curIP[20];
+  sprintf(curIP, "%03d:%03d:%03d:%03d", WiFi.localIP()[0], WiFi.localIP()[1], WiFi.localIP()[2], WiFi.localIP()[3]);
+  Serial.println("\nAssigned IP ");
+  Serial.println(curIP);
   ConfigureIoT();
-
-
-
-  // PAROLA Setup code
-  //Serial.begin(57600);
-  //PRINTS("\n[MD_Parola WiFi Message Display]\nType a message for the scrolling display from your internet browser");
-
-  P.begin();
-  P.displayClear();
-  P.displaySuspend(false);
-
-  P.displayScroll(curMessage, PA_LEFT, scrollEffect, frameDelay);
-
-  curMessage[0] = newMessage[0] = '\0';
-
-  // Connect to and initialise WiFi network
-  PRINT("\nConnecting to ", ssid);
-
-  WiFi.begin(ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    PRINT("\n", err2Str(WiFi.status()));
-    delay(500);
-  }
-  PRINTS("\nWiFi connected");
-
-  // Start the server
-  server.begin();
-  PRINTS("\nServer started");
-
-  // Set up first message as the IP address
-  sprintf(curMessage, "%03d:%03d:%03d:%03d", WiFi.localIP()[0], WiFi.localIP()[1], WiFi.localIP()[2], WiFi.localIP()[3]);
-  PRINT("\nAssigned IP ", curMessage);
-
-  // End of PAROLA Setup code
-  
 }
 
-
-char *err2Str(wl_status_t code)
-{
-  switch (code)
-  {
-  case WL_IDLE_STATUS:    return("IDLE");           break; // WiFi is in process of changing between statuses
-  case WL_NO_SSID_AVAIL:  return("NO_SSID_AVAIL");  break; // case configured SSID cannot be reached
-  case WL_CONNECTED:      return("CONNECTED");      break; // successful connection is established
-  case WL_CONNECT_FAILED: return("CONNECT_FAILED"); break; // password is incorrect
-  case WL_DISCONNECTED:   return("CONNECT_FAILED"); break; // module is not configured in station mode
-  default: return("??");
-  }
-}
-
-uint8_t htoi(char c)
-{
-  c = toupper(c);
-  if ((c >= '0') && (c <= '9')) return(c - '0');
-  if ((c >= 'A') && (c <= 'F')) return(c - 'A' + 0xa);
-  return(0);
-}
-
-
-
-
-
-
-
-
-void getData(char *szMesg, uint8_t len)
-// Message may contain data for:
-// New text (/&MSG=)
-// Scroll direction (/&SD=)
-// Invert (/&I=)
-// Speed (/&SP=)
-{
-  char *pStart, *pEnd;      // pointer to start and end of text
-
-  // check text message
-  pStart = strstr(szMesg, "/&MSG=");
-  if (pStart != NULL)
-  {
-    char *psz = newMessage;
-
-    pStart += 6;  // skip to start of data
-    pEnd = strstr(pStart, "/&");
-
-    if (pEnd != NULL)
-    {
-      while (pStart != pEnd)
-      {
-        if ((*pStart == '%') && isdigit(*(pStart + 1)))
-        {
-          // replace %xx hex code with the ASCII character
-          char c = 0;
-          pStart++;
-          c += (htoi(*pStart++) << 4);
-          c += htoi(*pStart++);
-          *psz++ = c;
-        }
-        else
-          *psz++ = *pStart++;
-      }
-
-      *psz = '\0'; // terminate the string
-      newMessageAvailable = (strlen(newMessage) != 0);
-      PRINT("\nNew Msg: ", newMessage);
-    }
-  }
-
-  // check scroll direction
-  pStart = strstr(szMesg, "/&SD=");
-  if (pStart != NULL)
-  {
-    pStart += 5;  // skip to start of data
-
-    PRINT("\nScroll direction: ", *pStart);
-    scrollEffect = (*pStart == 'R' ? PA_SCROLL_RIGHT : PA_SCROLL_LEFT);
-    P.setTextEffect(scrollEffect, scrollEffect);
-    P.displayReset();
-  }
-
-  // check invert
-  pStart = strstr(szMesg, "/&I=");
-  if (pStart != NULL)
-  {
-    pStart += 4;  // skip to start of data
-
-    PRINT("\nInvert mode: ", *pStart);
-    P.setInvert(*pStart == '1');
-  }
-
-  // check speed
-  pStart = strstr(szMesg, "/&SP=");
-  if (pStart != NULL)
-  {
-    pStart += 5;  // skip to start of data
-
-    int16_t speed = atoi(pStart);
-    PRINT("\nSpeed: ", P.getSpeed());
-    P.setSpeed(speed);
-    frameDelay = speed;
-  }
-}
-
-
-void setDisplayMessage(String message) {
-  newMessage = message;
-  newMessageAvailabe = true;
-}
 
 void loop ( void ) {
   // Als erstes wieder eine evtl. neue Seite "bereitstellen", danach werden ggf. Admin abgeschaltet, NTP aktualisiert etc.
@@ -364,12 +216,12 @@ void loop ( void ) {
 
   if (AdminEnabled)
     {
-    if (AdminTimeOutCounter > AdminTimeOut)
-    {
-       AdminEnabled = false;
-       Serial.println("Admin Mode disabled!");
-       WiFi.mode(WIFI_STA);
-    }
+  	if (AdminTimeOutCounter > AdminTimeOut)
+  	{
+  		 AdminEnabled = false;
+  		 Serial.println("Admin Mode disabled!");
+  		 WiFi.mode(WIFI_STA);
+  	}
     }
 
   
@@ -438,84 +290,6 @@ void loop ( void ) {
   }
 
   blinkLED();
-
-
-  //PAROLA Loop code  
-  handleWiFi();
-
-  if (P.displayAnimate())
-  {
-    if (newMessageAvailable)
-    {
-      strcpy(curMessage, newMessage);
-      newMessageAvailable = false;
-    }
-    P.displayReset();
-  // End off PAROLA Loop code  
 }
 
 
-
-
-
-
-
-
-
-/*PAROLA Code
-
-
-
-const char WebResponse[] = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n";
-
-char WebPage[] =
-"<!DOCTYPE html>" \
-"<html>" \
-"<head>" \
-"<title>MajicDesigns Test Page</title>" \
-
-"<script>" \
-"strLine = \"\";" \
-
-"function SendData()" \
-"{" \
-"  nocache = \"/&nocache=\" + Math.random() * 1000000;" \
-"  var request = new XMLHttpRequest();" \
-"  strLine = \"&MSG=\" + document.getElementById(\"data_form\").Message.value;" \
-"  strLine = strLine + \"/&SD=\" + document.getElementById(\"data_form\").ScrollType.value;" \
-"  strLine = strLine + \"/&I=\" + document.getElementById(\"data_form\").Invert.value;" \
-"  strLine = strLine + \"/&SP=\" + document.getElementById(\"data_form\").Speed.value;" \
-"  request.open(\"GET\", strLine + nocache, false);" \
-"  request.send(null);" \
-"}" \
-"</script>" \
-"</head>" \
-
-"<body>" \
-"<p><b>MD_Parola set message</b></p>" \
-
-"<form id=\"data_form\" name=\"frmText\">" \
-"<label>Message:<br><input type=\"text\" name=\"Message\" maxlength=\"255\"></label>" \
-"<br><br>" \
-"<input type = \"radio\" name = \"Invert\" value = \"0\" checked> Normal" \
-"<input type = \"radio\" name = \"Invert\" value = \"1\"> Inverse" \
-"<br>" \
-"<input type = \"radio\" name = \"ScrollType\" value = \"L\" checked> Left Scroll" \
-"<input type = \"radio\" name = \"ScrollType\" value = \"R\"> Right Scroll" \
-"<br><br>" \
-"<label>Speed:<br>Fast<input type=\"range\" name=\"Speed\"min=\"10\" max=\"200\">Slow"\
-"<br>" \
-"</form>" \
-"<br>" \
-"<input type=\"submit\" value=\"Send Data\" onclick=\"SendData()\">" \
-"</body>" \
-"</html>";
-
-
-
-void setup()
-{
-
-}
-
-*/

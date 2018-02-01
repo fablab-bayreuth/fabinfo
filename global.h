@@ -41,7 +41,6 @@ struct strConfig {
   String IoTUserName;
   String IoTDeviceID;
   String IoTCredential;  
-	boolean AutoTurnOff; // currently not used
 	boolean AutoTurnOn;
 	byte TurnOffHour;
 	byte TurnOffMinute;
@@ -50,10 +49,8 @@ struct strConfig {
 	int SensCalMin;
 	int SensCalMax;
 	int SensCalc;
-	boolean InfoOn; // currently not used -> LED
 	boolean LEDOn; // LED enabled switch
 	byte SensRefreshTime;
-	byte MinWarn; // currently not used
 }   config;
 
 #define MAX_VALUES 12
@@ -206,7 +203,6 @@ void WriteConfig()
 	WriteStringToEEPROM(128,config.ntpServerName);
 
 	EEPROM.write(300,config.AutoTurnOn);
-	EEPROM.write(301,config.AutoTurnOff); // currently not used
 	EEPROM.write(302,config.TurnOnHour);
 	EEPROM.write(303,config.TurnOnMinute);
 	EEPROM.write(304,config.TurnOffHour);
@@ -215,7 +211,6 @@ void WriteConfig()
 	EEPROM.write(309,config.InfoOn); // currently not used
 	EEPROM.write(310,config.LEDOn);
 	EEPROM.write(311,config.SensRefreshTime);
-	EEPROM.write(312,config.MinWarn); // currently not used
 	WriteStringToEEPROM(313,config.DeviceName);
 
   EEPROM.write(345,config.IoTOn);
@@ -265,7 +260,6 @@ boolean ReadConfig()
 		config.ntpServerName = ReadStringFromEEPROM(128);
 		
 		config.AutoTurnOn = EEPROM.read(300);
-		config.AutoTurnOff = EEPROM.read(301); // currently not used
 		config.TurnOnHour = EEPROM.read(302);
 		config.TurnOnMinute = EEPROM.read(303);
 		config.TurnOffHour = EEPROM.read(304);
@@ -274,7 +268,6 @@ boolean ReadConfig()
 		config.InfoOn = EEPROM.read(309); // currently not used
 		config.LEDOn = EEPROM.read(310);
 		config.SensRefreshTime = EEPROM.read(311);
-		config.MinWarn = EEPROM.read(312); // currently not used
 		config.DeviceName= ReadStringFromEEPROM(313);
 
     config.IoTOn = EEPROM.read(345);
