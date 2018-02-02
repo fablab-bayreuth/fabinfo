@@ -8,7 +8,7 @@ const char PAGE_NetworkConfiguration[] PROGMEM = R"=====(
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Netzwerk Konfiguration</strong>
 <hr>
-Verbindung zum Router / W-LAN Einstellungen:<br>
+<b>Verbindung zum Router / W-LAN Einstellungen:</b><br>
 <form action="" method="get">
 <table border="0"  cellspacing="0" cellpadding="3" style="width:310px" >
 <tr><td align="right">SSID:</td><td><input type="text" id="ssid" name="ssid" value=""></td></tr>

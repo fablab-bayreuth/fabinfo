@@ -9,6 +9,7 @@ EIN
 
 
 SETTINGS INSTANCE
+Action (Textmessage, Temperature, Humidifier, Light, Time, Date, Countdown, MQTT Topic)
 Textstring (128 caracter)
 Speed (ms/frame)
 Direction (left, right)
@@ -16,8 +17,5 @@ Orientation (left, center, right)
 Displaytime [pause] (ms)
 EinEffect (Nummern nach texteffect_t ( mit HTML OPT GROUP ))
 AusEffect (Nummern nach texteffect_t ( mit HTML OPT GROUP ))
-
-
-
-
+Countdown Start (min)
 Pause [Zeit zwischen Animation)

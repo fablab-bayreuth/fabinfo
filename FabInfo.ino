@@ -65,13 +65,20 @@ void setup ( void ) {
 
   pinMode(BUILTIN_LED, OUTPUT);
 
-  // set Solide Moisture Sensor (SMS)
-  pinMode(A0, INPUT); // Moisture Sensor Analog Output
-  pinMode(D0, INPUT); // Moisture Sensor Digital Output
-  pinMode(D5, OUTPUT); // Moisture Sensor GND
-  pinMode(D6, OUTPUT); // Moisture Sensor VCC
-  digitalWrite(D5, LOW);
-  digitalWrite(D6, LOW); // Sensor OFF
+
+// set pins Auto Light Sensor(ALS)
+// LDRV       D3      LDR 3.3V
+// LDRG       D2      LDG GND
+// LDRA       A0      LDR analog
+  pinMode(A0, INPUT); // Auto Light Sensor Analog Output
+  pinMode(D2, OUTPUT); // Auto Light Sensor GND
+  pinMode(D3, OUTPUT); // Auto Light Sensor VCC
+  digitalWrite(D2, LOW);
+  digitalWrite(D3, LOW); // Auto Light Sensor OFF
+
+// set pins DHT-11 Sensor(TMP & HUM)
+// DHTD       D1       DHT-11 Data
+  pinMode(D1, INPUT); // DHT-11 Data Digital Input
 
   Serial.printf("Starting FabInfo %s\n", PGNV);
 
@@ -88,19 +95,26 @@ void setup ( void ) {
     config.Update_Time_Via_NTP_Every = 1;
     config.timezone = 10;
     config.daylight = true;
-    config.IoTRLS = "Not Named IoT Resource";
     config.IoTOn = false;
     config.IoTUserName = "Not Named IoT User";
     config.IoTDeviceID = "Not Named IoT Device";
     config.IoTCredential = "Not Named IoT Credential";
+    config.IoTRLS = "Not Named IoT Resource";
+    config.IoTRHS = "Not Named IoT Resource";
+    config.IoTRTS = "Not Named IoT Resource";
     config.AutoTurnOn = false;
     config.TurnOffHour = 0;
     config.TurnOffMinute = 0;
     config.TurnOnHour = 0;
     config.TurnOnMinute = 0;
-    config.SensCalMin = 60;
-    config.SensCalMax = 900;
-    config.SensCalc = 100;
+    config.SensCalMinL = 60;
+    config.SensCalMaxL = 900;
+    config.SensCalMinH = 60;
+    config.SensCalMaxH = 900;
+    config.SensCalMinT = 60;
+    config.SensCalMaxT = 900;   
+    config.SensCalcH = 100;
+    config.SensCalcT = 100;    
     config.LEDOn = true; // enable switch LED on
     config.SensRefreshTime = 1;
     WriteConfig();

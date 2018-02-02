@@ -81,17 +81,17 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
 	<td align="right"> Messwert für Maximalanzeige:</td>
-	<td><input type="text" id="senscalmax" name="senscalmax" size="3" value="900"></td>
+	<td><input type="text" id="senscalmaxL" name="senscalmaxL" size="3" value="900"></td>
 </tr>
 
 <tr>
   <td align="right"> Messwert für Minimalanzeige:</td>
-  <td><input type="text" id="senscalmin" name="senscalmin" size="3" value="50"></td>
+  <td><input type="text" id="senscalminL" name="senscalminL" size="3" value="50"></td>
 </tr>
 
 <tr>
   <td align="right"> Kalibrierfaktor:</td>
-  <td><input type="text" id="senscalc" name="senscalc" size="3" value=""></td>
+  <td><input type="text" id="senscalcH" name="senscalcH" size="3" value=""></td>
 </tr>
 
 <tr>

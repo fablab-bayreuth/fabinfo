@@ -46,11 +46,18 @@ struct strConfig {
 	byte TurnOffMinute;
 	byte TurnOnHour;
 	byte TurnOnMinute;
-	int SensCalMin;
-	int SensCalMax;
-	int SensCalc;
+	int SensCalMinL;
+	int SensCalMaxL;
+	int SensCalcH;
+  int SensCalcT;
 	boolean LEDOn; // LED enabled switch
 	byte SensRefreshTime;
+  String IoTRHS;
+  String IoTRTS;
+  int SensCalMinH;
+  int SensCalMaxH;
+  int SensCalMinT;
+  int SensCalMaxT;
 }   config;
 
 #define MAX_VALUES 12
@@ -108,16 +115,16 @@ DataBuffer db;
 int readprobe()
 {
     int result;
+/*
+    digitalWrite(D2, LOW);
+    digitalWrite(D3, HIGH); // Sensor ON
 
-    digitalWrite(D5, LOW);
-    digitalWrite(D6, HIGH); // Sensor ON
-
-    delay(90); // vorher ist der Wert nicht stabil   
-    result = map((1023-analogRead(A0)),config.SensCalMin,config.SensCalMax,0,config.SensCalc);
+    delay(50); // vorher ist der Wert nicht stabil   
+    result = map((1023-analogRead(A0)),config.SensCalMinL,config.SensCalMaxL,0,100); // !!!!!! Muss überarbeitet werden
  
-    digitalWrite(D5, LOW);
-    digitalWrite(D6, LOW); // Sensor OFF
-
+    digitalWrite(D2, LOW);
+    digitalWrite(D3, LOW); // Sensor OFF
+*/
     db.push(result);
     
     return result;  
@@ -179,9 +186,9 @@ void WriteConfig()
 	EEPROMWritelong(18,config.Update_Time_Via_NTP_Every); // 4 Byte
 	EEPROMWritelong(22,config.timezone);  // 4 Byte
 
-  EEPROMWriteint(26,config.SensCalMin);
-  EEPROMWriteint(28,config.SensCalMax);
-  EEPROMWriteint(30,config.SensCalc);
+  EEPROMWriteint(26,config.SensCalMinL);
+  EEPROMWriteint(28,config.SensCalMaxL);
+  EEPROMWriteint(30,config.SensCalcH);
 
 	EEPROM.write(32,config.IP[0]);
 	EEPROM.write(33,config.IP[1]);
@@ -216,6 +223,13 @@ void WriteConfig()
   WriteStringToEEPROM(346,config.IoTUserName);
   WriteStringToEEPROM(378,config.IoTDeviceID);
   WriteStringToEEPROM(410,config.IoTCredential);
+  WriteStringToEEPROM(342,config.IoTRHS);
+  WriteStringToEEPROM(374,config.IoTRTS);
+  EEPROMWriteint(406,config.SensCalMinH);
+  EEPROMWriteint(408,config.SensCalMaxH);
+  EEPROMWriteint(410,config.SensCalMinT);
+  EEPROMWriteint(412,config.SensCalMaxT);   
+  EEPROMWriteint(414,config.SensCalcT);   
 	EEPROM.commit();
 }
 
@@ -236,9 +250,9 @@ boolean ReadConfig()
 		config.Update_Time_Via_NTP_Every = EEPROMReadlong(18); // 4 Byte
 		config.timezone = EEPROMReadlong(22); // 4 Byte
 
-    config.SensCalMin = EEPROMReadint(26);
-    config.SensCalMax = EEPROMReadint(28);
-    config.SensCalc = EEPROMReadint(30);
+    config.SensCalMinL = EEPROMReadint(26);
+    config.SensCalMaxL = EEPROMReadint(28);
+    config.SensCalcH = EEPROMReadint(30);
 
 		config.IP[0] = EEPROM.read(32);
 		config.IP[1] = EEPROM.read(33);
@@ -272,8 +286,15 @@ boolean ReadConfig()
     config.IoTUserName= ReadStringFromEEPROM(346);
     config.IoTDeviceID= ReadStringFromEEPROM(378);
     config.IoTCredential= ReadStringFromEEPROM(410);
+    config.IoTRHS= ReadStringFromEEPROM(342);
+    config.IoTRTS= ReadStringFromEEPROM(374);	
+    
+    config.SensCalMinH = EEPROMReadint(406);
+    config.SensCalMaxH = EEPROMReadint(408);
+    config.SensCalMinT = EEPROMReadint(410);
+    config.SensCalMaxT = EEPROMReadint(412);  
+    config.SensCalcT = EEPROMReadint(414);         	
 		return true;
-		
 	}
 	else
 	{
