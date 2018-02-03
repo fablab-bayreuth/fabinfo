@@ -7,7 +7,6 @@ EIN
 	Max(%)
 
 
-
 SETTINGS INSTANCE
 Action (Textmessage, Temperature, Humidifier, Light, Time, Date, Countdown, MQTT Topic)
 Textstring (128 caracter)
