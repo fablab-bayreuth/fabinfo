@@ -51,6 +51,7 @@ struct strConfig {
 	int SensCalcH;
   int SensCalcT;
 	boolean LEDOn; // LED enabled switch
+  boolean DefaultOn; // Set to default configuration
 	byte SensRefreshTime;
   String IoTRHS;
   String IoTRTS;
@@ -172,136 +173,10 @@ void ConfigureWifi()
 	}
 }
 
-void WriteConfig()
-{
 
-	Serial.println("Writing Config");
-	EEPROM.write(0,'C');
-	EEPROM.write(1,'F');
-	EEPROM.write(2,'G');
 
-	EEPROM.write(16,config.dhcp);
-	EEPROM.write(17,config.daylight);
-	
-	EEPROMWritelong(18,config.Update_Time_Via_NTP_Every); // 4 Byte
-	EEPROMWritelong(22,config.timezone);  // 4 Byte
 
-  EEPROMWriteint(26,config.SensCalMinL);
-  EEPROMWriteint(28,config.SensCalMaxL);
-  EEPROMWriteint(30,config.SensCalcH);
 
-	EEPROM.write(32,config.IP[0]);
-	EEPROM.write(33,config.IP[1]);
-	EEPROM.write(34,config.IP[2]);
-	EEPROM.write(35,config.IP[3]);
-
-	EEPROM.write(36,config.Netmask[0]);
-	EEPROM.write(37,config.Netmask[1]);
-	EEPROM.write(38,config.Netmask[2]);
-	EEPROM.write(39,config.Netmask[3]);
-
-	EEPROM.write(40,config.Gateway[0]);
-	EEPROM.write(41,config.Gateway[1]);
-	EEPROM.write(42,config.Gateway[2]);
-	EEPROM.write(43,config.Gateway[3]);
-
-	WriteStringToEEPROM(64,config.ssid);
-	WriteStringToEEPROM(96,config.password);
-	WriteStringToEEPROM(128,config.ntpServerName);
-
-	EEPROM.write(300,config.AutoTurnOn);
-	EEPROM.write(302,config.TurnOnHour);
-	EEPROM.write(303,config.TurnOnMinute);
-	EEPROM.write(304,config.TurnOffHour);
-	EEPROM.write(305,config.TurnOffMinute);	
-
-	EEPROM.write(310,config.LEDOn);
-	EEPROM.write(311,config.SensRefreshTime);
-	WriteStringToEEPROM(313,config.IoTRLS);
-
-  EEPROM.write(345,config.IoTOn);
-  WriteStringToEEPROM(346,config.IoTUserName);
-  WriteStringToEEPROM(378,config.IoTDeviceID);
-  WriteStringToEEPROM(410,config.IoTCredential);
-  WriteStringToEEPROM(342,config.IoTRHS);
-  WriteStringToEEPROM(374,config.IoTRTS);
-  EEPROMWriteint(406,config.SensCalMinH);
-  EEPROMWriteint(408,config.SensCalMaxH);
-  EEPROMWriteint(410,config.SensCalMinT);
-  EEPROMWriteint(412,config.SensCalMaxT);   
-  EEPROMWriteint(414,config.SensCalcT);   
-	EEPROM.commit();
-}
-
-boolean ReadConfig()
-{
-
-	Serial.println("Reading Configuration");
-	if (EEPROM.read(0) == 'C' && EEPROM.read(1) == 'F'  && EEPROM.read(2) == 'G' )
-	{
-		Serial.println("Configurarion Found!");
-
-    int pos = 16;
-   
-		config.dhcp = 	EEPROM.read(pos); pos += sizeof(config.dhcp);
-
-		config.daylight = EEPROM.read(pos); pos += sizeof(config.daylight);
-
-		config.Update_Time_Via_NTP_Every = EEPROMReadlong(18); // 4 Byte
-		config.timezone = EEPROMReadlong(22); // 4 Byte
-
-    config.SensCalMinL = EEPROMReadint(26);
-    config.SensCalMaxL = EEPROMReadint(28);
-    config.SensCalcH = EEPROMReadint(30);
-
-		config.IP[0] = EEPROM.read(32);
-		config.IP[1] = EEPROM.read(33);
-		config.IP[2] = EEPROM.read(34);
-		config.IP[3] = EEPROM.read(35);
-
-		config.Netmask[0] = EEPROM.read(36);
-		config.Netmask[1] = EEPROM.read(37);
-		config.Netmask[2] = EEPROM.read(38);
-		config.Netmask[3] = EEPROM.read(39);
-		config.Gateway[0] = EEPROM.read(40);
-		config.Gateway[1] = EEPROM.read(41);
-		config.Gateway[2] = EEPROM.read(42);
-		config.Gateway[3] = EEPROM.read(43);
-
-		config.ssid = ReadStringFromEEPROM(64);
-		config.password = ReadStringFromEEPROM(96);
-		config.ntpServerName = ReadStringFromEEPROM(128);
-		
-		config.AutoTurnOn = EEPROM.read(300);
-		config.TurnOnHour = EEPROM.read(302);
-		config.TurnOnMinute = EEPROM.read(303);
-		config.TurnOffHour = EEPROM.read(304);
-		config.TurnOffMinute = EEPROM.read(305);
-
-		config.LEDOn = EEPROM.read(310);
-		config.SensRefreshTime = EEPROM.read(311);
-		config.IoTRLS= ReadStringFromEEPROM(313);
-
-    config.IoTOn = EEPROM.read(345);
-    config.IoTUserName= ReadStringFromEEPROM(346);
-    config.IoTDeviceID= ReadStringFromEEPROM(378);
-    config.IoTCredential= ReadStringFromEEPROM(410);
-    config.IoTRHS= ReadStringFromEEPROM(342);
-    config.IoTRTS= ReadStringFromEEPROM(374);	
-    
-    config.SensCalMinH = EEPROMReadint(406);
-    config.SensCalMaxH = EEPROMReadint(408);
-    config.SensCalMinT = EEPROMReadint(410);
-    config.SensCalMaxT = EEPROMReadint(412);  
-    config.SensCalcT = EEPROMReadint(414);         	
-		return true;
-	}
-	else
-	{
-		Serial.println("Configurarion NOT FOUND!!!!");
-		return false;
-	}
-}
 
 /*
 **
@@ -372,6 +247,215 @@ unsigned long NTPRefresh()
 
   return 0;
 }
+
+
+
+
+boolean ReadConfig()
+{
+
+  Serial.println("Reading Configuration");
+  if (EEPROM.read(0) == 'C' && EEPROM.read(1) == 'F'  && EEPROM.read(2) == 'G' )
+  {
+    Serial.println("Configurarion Found!");
+
+    int pos = 16;
+   
+    config.dhcp =   EEPROM.read(pos); pos += sizeof(config.dhcp);
+
+    config.daylight = EEPROM.read(pos); pos += sizeof(config.daylight);
+
+    config.Update_Time_Via_NTP_Every = EEPROMReadlong(18); // 4 Byte
+    config.timezone = EEPROMReadlong(22); // 4 Byte
+
+    config.SensCalMinL = EEPROMReadint(26);
+    config.SensCalMaxL = EEPROMReadint(28);
+    config.SensCalcH = EEPROMReadint(30);
+
+    config.IP[0] = EEPROM.read(32);
+    config.IP[1] = EEPROM.read(33);
+    config.IP[2] = EEPROM.read(34);
+    config.IP[3] = EEPROM.read(35);
+
+    config.Netmask[0] = EEPROM.read(36);
+    config.Netmask[1] = EEPROM.read(37);
+    config.Netmask[2] = EEPROM.read(38);
+    config.Netmask[3] = EEPROM.read(39);
+    config.Gateway[0] = EEPROM.read(40);
+    config.Gateway[1] = EEPROM.read(41);
+    config.Gateway[2] = EEPROM.read(42);
+    config.Gateway[3] = EEPROM.read(43);
+
+    config.ssid = ReadStringFromEEPROM(64);
+    config.password = ReadStringFromEEPROM(96);
+    config.ntpServerName = ReadStringFromEEPROM(128);
+    
+    config.AutoTurnOn = EEPROM.read(300);
+    config.TurnOnHour = EEPROM.read(302);
+    config.TurnOnMinute = EEPROM.read(303);
+    config.TurnOffHour = EEPROM.read(304);
+    config.TurnOffMinute = EEPROM.read(305);
+
+    config.LEDOn = EEPROM.read(310);
+    config.SensRefreshTime = EEPROM.read(311);
+    config.IoTRLS= ReadStringFromEEPROM(313);
+
+    config.IoTOn = EEPROM.read(345);
+    config.IoTUserName= ReadStringFromEEPROM(346);
+    config.IoTDeviceID= ReadStringFromEEPROM(378);
+    config.IoTCredential= ReadStringFromEEPROM(410);
+    config.IoTRHS= ReadStringFromEEPROM(342);
+    config.IoTRTS= ReadStringFromEEPROM(374); 
+    
+    config.SensCalMinH = EEPROMReadint(406);
+    config.SensCalMaxH = EEPROMReadint(408);
+    config.SensCalMinT = EEPROMReadint(410);
+    config.SensCalMaxT = EEPROMReadint(412);  
+    config.SensCalcT = EEPROMReadint(414);     
+    config.DefaultOn = EEPROM.read(316);      
+    return true;
+  }
+  else
+  {
+    Serial.println("Configurarion NOT FOUND!!!!");
+    return false;
+  }
+}
+
+
+
+
+
+void WriteConfig()
+{
+
+  Serial.println("Writing Config");
+  EEPROM.write(0,'C');
+  EEPROM.write(1,'F');
+  EEPROM.write(2,'G');
+
+  EEPROM.write(16,config.dhcp);
+  EEPROM.write(17,config.daylight);
+  
+  EEPROMWritelong(18,config.Update_Time_Via_NTP_Every); // 4 Byte
+  EEPROMWritelong(22,config.timezone);  // 4 Byte
+
+  EEPROMWriteint(26,config.SensCalMinL);
+  EEPROMWriteint(28,config.SensCalMaxL);
+  EEPROMWriteint(30,config.SensCalcH);
+
+  EEPROM.write(32,config.IP[0]);
+  EEPROM.write(33,config.IP[1]);
+  EEPROM.write(34,config.IP[2]);
+  EEPROM.write(35,config.IP[3]);
+
+  EEPROM.write(36,config.Netmask[0]);
+  EEPROM.write(37,config.Netmask[1]);
+  EEPROM.write(38,config.Netmask[2]);
+  EEPROM.write(39,config.Netmask[3]);
+
+  EEPROM.write(40,config.Gateway[0]);
+  EEPROM.write(41,config.Gateway[1]);
+  EEPROM.write(42,config.Gateway[2]);
+  EEPROM.write(43,config.Gateway[3]);
+
+  WriteStringToEEPROM(64,config.ssid);
+  WriteStringToEEPROM(96,config.password);
+  WriteStringToEEPROM(128,config.ntpServerName);
+
+  EEPROM.write(300,config.AutoTurnOn);
+  EEPROM.write(302,config.TurnOnHour);
+  EEPROM.write(303,config.TurnOnMinute);
+  EEPROM.write(304,config.TurnOffHour);
+  EEPROM.write(305,config.TurnOffMinute); 
+
+  EEPROM.write(310,config.LEDOn);
+  EEPROM.write(311,config.SensRefreshTime);
+  WriteStringToEEPROM(313,config.IoTRLS);
+
+  EEPROM.write(345,config.IoTOn);
+  WriteStringToEEPROM(346,config.IoTUserName);
+  WriteStringToEEPROM(378,config.IoTDeviceID);
+  WriteStringToEEPROM(410,config.IoTCredential);
+  WriteStringToEEPROM(342,config.IoTRHS);
+  WriteStringToEEPROM(374,config.IoTRTS);
+  EEPROMWriteint(406,config.SensCalMinH);
+  EEPROMWriteint(408,config.SensCalMaxH);
+  EEPROMWriteint(410,config.SensCalMinT);
+  EEPROMWriteint(412,config.SensCalMaxT);   
+  EEPROMWriteint(414,config.SensCalcT);  
+  EEPROM.write(416,config.DefaultOn); 
+  EEPROM.commit();
+}
+
+
+
+
+
+void SetConfig()
+{
+   if (!ReadConfig()) // set defaults if no configuration found before
+  {
+    // DEFAULT CONFIG
+    config.ssid = "ArduinoGast";
+    config.password = "arduinoUNO123";
+    config.dhcp = true;
+    config.IP[0] = 192; config.IP[1] = 168; config.IP[2] = 1; config.IP[3] = 100;
+    config.Netmask[0] = 255; config.Netmask[1] = 255; config.Netmask[2] = 255; config.Netmask[3] = 0;
+    config.Gateway[0] = 192; config.Gateway[1] = 168; config.Gateway[2] = 1; config.Gateway[3] = 1;
+    config.ntpServerName = "0.de.pool.ntp.org";
+    config.Update_Time_Via_NTP_Every = 1;
+    config.timezone = 10;
+    config.daylight = true;
+    config.IoTOn = false;
+    config.IoTUserName = "Not Named IoT User";
+    config.IoTDeviceID = "Not Named IoT Device";
+    config.IoTCredential = "Not Named IoT Credential";
+    config.IoTRLS = "RLS";
+    config.IoTRHS = "RHS";
+    config.IoTRTS = "RTS";
+    config.AutoTurnOn = false;
+    config.TurnOffHour = 0;
+    config.TurnOffMinute = 0;
+    config.TurnOnHour = 0;
+    config.TurnOnMinute = 0;
+    config.SensCalMinL = 60;
+    config.SensCalMaxL = 900;
+    config.SensCalMinH = 60;
+    config.SensCalMaxH = 900;
+    config.SensCalMinT = 60;
+    config.SensCalMaxT = 900;   
+    config.SensCalcH = 100;
+    config.SensCalcT = 100;    
+    config.LEDOn = true; // enable switch LED on
+    config.DefaultOn = false; // disable set to default configuration
+    config.SensRefreshTime = 1;
+    WriteConfig();
+    Serial.println("General config applied");
+  }
+
+}
+
+
+
+
+
+
+void SetDefaultConfig()
+{
+  if (config.DefaultOn)
+  {
+     for (int i = 0 ; i < 1024 ; i++) 
+     {
+      EEPROM.write(i, 0);
+     }
+    SetConfig(); // set default configuration
+    config.DefaultOn = false;
+    ConfigureWifi();
+  }
+}
+
+
 
 void Second_Tick()
 {

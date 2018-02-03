@@ -59,7 +59,7 @@
 #include "page_fabinfo.h"
 
 void setup ( void ) {
-  EEPROM.begin(512);
+  EEPROM.begin(1024);
   Serial.begin(115200);
   delay(500);
 
@@ -82,47 +82,11 @@ void setup ( void ) {
 
   Serial.printf("Starting FabInfo %s\n", PGNV);
 
-  if (!ReadConfig())
-  {
-    // DEFAULT CONFIG
-    config.ssid = "ArduinoGast";
-    config.password = "arduinoUNO123";
-    config.dhcp = true;
-    config.IP[0] = 192; config.IP[1] = 168; config.IP[2] = 1; config.IP[3] = 100;
-    config.Netmask[0] = 255; config.Netmask[1] = 255; config.Netmask[2] = 255; config.Netmask[3] = 0;
-    config.Gateway[0] = 192; config.Gateway[1] = 168; config.Gateway[2] = 1; config.Gateway[3] = 1;
-    config.ntpServerName = "0.de.pool.ntp.org";
-    config.Update_Time_Via_NTP_Every = 1;
-    config.timezone = 10;
-    config.daylight = true;
-    config.IoTOn = false;
-    config.IoTUserName = "Not Named IoT User";
-    config.IoTDeviceID = "Not Named IoT Device";
-    config.IoTCredential = "Not Named IoT Credential";
-    config.IoTRLS = "Not Named IoT Resource";
-    config.IoTRHS = "Not Named IoT Resource";
-    config.IoTRTS = "Not Named IoT Resource";
-    config.AutoTurnOn = false;
-    config.TurnOffHour = 0;
-    config.TurnOffMinute = 0;
-    config.TurnOnHour = 0;
-    config.TurnOnMinute = 0;
-    config.SensCalMinL = 60;
-    config.SensCalMaxL = 900;
-    config.SensCalMinH = 60;
-    config.SensCalMaxH = 900;
-    config.SensCalMinT = 60;
-    config.SensCalMaxT = 900;   
-    config.SensCalcH = 100;
-    config.SensCalcT = 100;    
-    config.LEDOn = true; // enable switch LED on
-    config.SensRefreshTime = 1;
-    WriteConfig();
-    Serial.println("General config applied");
-  }
+ // SetDefaultConfig();
 
-
-  if (AdminEnabled)
+  SetConfig(); // set defaults if no configuration found before
+  
+   if (AdminEnabled)
   {
     WiFi.mode(WIFI_AP_STA);
 
@@ -226,6 +190,8 @@ void setup ( void ) {
 void loop ( void ) {
   // Als erstes wieder eine evtl. neue Seite "bereitstellen", danach werden ggf. Admin abgeschaltet, NTP aktualisiert etc.
   server.handleClient();
+
+  SetDefaultConfig();
 
   if (AdminEnabled)
     {

@@ -157,8 +157,29 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
   <td><input type="checkbox" id="ledenabled" name="ledenabled"></td>
 </tr>
 
-<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--red" value="SPEICHERN"></td></tr>
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
 
+<tr>
+  <td align="left" colspan="2"><b>FabInfo Konfiguration zurücksetzen:</b></td>
+</tr>
+
+<tr>
+  <td align="right"> Setze Konfiguration auf Auslieferungszustand zurück:</td>
+  <td><input type="checkbox" id="defaultactive" name="defaultactive"> (1=Standard zurück setzen!)</td>
+</tr>
+
+<font color="red">
+<td align="right"> Achtung Auslieferungszustand setzt WLAN Verbindung zurück!</td>
+</font> 
+
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--red" value="SPEICHERN"></td></tr>
 
 </table>
 </form>
@@ -196,6 +217,7 @@ void send_general_html()
 		config.AutoTurnOn = false;
     config.IoTOn = false;
     config.LEDOn = false;
+    config.DefaultOn = false;
     
 		String temp = "";
 		for ( uint8_t i = 0; i < server.args(); i++ ) {
@@ -212,7 +234,8 @@ void send_general_html()
 			if (server.argName(i) == "toffhour") config.TurnOffHour =  server.arg(i).toInt(); 
 			if (server.argName(i) == "toffminute") config.TurnOffMinute =  server.arg(i).toInt(); 
 			if (server.argName(i) == "ledenabled") config.LEDOn = true; // switch enabled status LED
-			if (server.argName(i) == "sensrefreshtime") config.SensRefreshTime =  server.arg(i).toInt(); 
+      if (server.argName(i) == "defaultactive") config.DefaultOn = true; // switch to erase EEPROM and set defaults
+      if (server.argName(i) == "sensrefreshtime") config.SensRefreshTime =  server.arg(i).toInt(); 
 			if (server.argName(i) == "senscalmaxL") config.SensCalMaxL =  server.arg(i).toInt(); 
       if (server.argName(i) == "senscalminL") config.SensCalMinL =  server.arg(i).toInt(); 
       if (server.argName(i) == "senscalmaxH") config.SensCalMaxH =  server.arg(i).toInt();  
@@ -250,6 +273,7 @@ void send_general_configuration_values_html()
 	values += "toffminute|" +   (String)  config.TurnOffMinute +  "|input\n";
 	values += "tonenabled|" +  (String) (config.AutoTurnOn ? "checked" : "") + "|chk\n";
 	values += "ledenabled|" +  (String) (config.LEDOn ? "checked" : "") + "|chk\n";
+  values += "defaultactive|" +  (String) (config.DefaultOn ? "checked" : "") + "|chk\n";
 	values += "sensrefreshtime|" +   (String)  config.SensRefreshTime +  "|input\n";
 	values += "senscalmaxL|" +   (String)  config.SensCalMaxL +  "|input\n";
   values += "senscalminL|" +   (String)  config.SensCalMinL +  "|input\n";
