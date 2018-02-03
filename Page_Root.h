@@ -1,4 +1,8 @@
 
+//
+//  HTML PAGE
+//
+
 const char HTML_TEMPLATE_HEADER[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="de">

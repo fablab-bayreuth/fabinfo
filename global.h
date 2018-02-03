@@ -1,6 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
+
 ESP8266WebServer server(80);									// The Webserver
 boolean firstStart = true;										// On firststart = true, NTP will try to get a valid time
 int AdminTimeOutCounter = 0;									// Counter for Disabling the AdminMode

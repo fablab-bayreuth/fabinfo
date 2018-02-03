@@ -1,4 +1,8 @@
 
+//
+//  HTML PAGE
+//
+
 const char PAGE_NTPConfiguration[] PROGMEM = R"=====(
 <html>
 <head>

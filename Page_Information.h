@@ -1,7 +1,6 @@
 #ifndef PAGE_INFOMATION_H
 #define PAGE_INFOMATION_H
 
-
 //
 //   The HTML PAGE
 //

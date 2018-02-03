@@ -1,4 +1,8 @@
 
+//
+//  STYLE PAGE
+//
+
 const char PAGE_Style_css[] PROGMEM = R"=====(
 body { color: #000000; font-family: avenir, helvetica, arial, sans-serif;  letter-spacing: 0.15em;} 
 hr {    background-color: #ffffff;    border: 0 none;   color: #ffffff;    height: 1px; } 
