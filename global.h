@@ -63,10 +63,10 @@ struct strConfig {
 }   config;
 
 struct strStory {
-  boolean AISOn;
-  byte AISmin;
-  byte AISmax;  
-  byte DisplayIntensity;
+  boolean AISOn; // Auto Intensity Sensor On (1=active)
+  byte AISmin;  // AIS minimum level (0...15) 
+  byte AISmax;  // AIS maximum level (0...15)
+  byte DisplayIntensity; // static intensity level if AIS disabled (0...15)
   
   int ActionNo; // Display action (Textmessage, Temperature, Humidifier, Light, Current Time, Current Date, Target Date, Countdown to Date, MQTT Topic, Nerd News, Animation: PacMan, Smiley, Bouncing Ball, etc.)
   String Textmessage;
@@ -90,7 +90,7 @@ struct strStory {
   String MQTTpwd; // MQTT Password data
   String MQTTport; // MQTT Port
   boolean MQTTssl; // SSL active (1=active) 
-  String MQTTsslport;// MQTT SSL Port  
+  String MQTTsslport; // MQTT SSL Port  
   String MQTTwebsport; //Websockets port (for TSL only)
 };
 

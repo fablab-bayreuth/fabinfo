@@ -47,5 +47,5 @@ Pause 			[Zeit zwischen Animation)
   String MQTTpwd; // MQTT Password data
   String MQTTport; // MQTT Port
   boolean MQTTssl; // SSL active (1=active) 
-  String MQTTsslport;// MQTT SSL Port  
+  String MQTTsslport; // MQTT SSL Port  
   String MQTTwebsport; //Websockets port (for TSL only)

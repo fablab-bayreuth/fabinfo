@@ -67,15 +67,15 @@ void setup ( void ) {
   pinMode(BUILTIN_LED, OUTPUT);
 
 
-// set pins Auto Light Sensor(ALS)
+// set pins Auto Intensity Sensor(AIS)
 // LDRV       D3      LDR 3.3V
 // LDRG       D2      LDG GND
 // LDRA       A0      LDR analog
-  pinMode(A0, INPUT); // Auto Light Sensor Analog Output
-  pinMode(D2, OUTPUT); // Auto Light Sensor GND
-  pinMode(D3, OUTPUT); // Auto Light Sensor VCC
+  pinMode(A0, INPUT); // Auto Intensity Sensor Analog Output
+  pinMode(D2, OUTPUT); // Auto Intensity Sensor GND
+  pinMode(D3, OUTPUT); // Auto Intensity Sensor VCC
   digitalWrite(D2, LOW);
-  digitalWrite(D3, LOW); // Auto Light Sensor OFF
+  digitalWrite(D3, LOW); // Auto Intensity Sensor OFF
 
 // set pins DHT-11 Sensor(TMP & HUM)
 // DHTD       D1       DHT-11 Data
