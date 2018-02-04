@@ -62,6 +62,42 @@ struct strConfig {
   int SensCalMaxT;
 }   config;
 
+struct strStory {
+  boolean AISOn;
+  byte AISmin;
+  byte AISmax;  
+  byte DisplayIntensity;
+  
+  int ActionNo; // Display action (Textmessage, Temperature, Humidifier, Light, Current Time, Current Date, Target Date, Countdown to Date, MQTT Topic, Nerd News, Animation: PacMan, Smiley, Bouncing Ball, etc.)
+  String Textmessage;
+  int  TextSpeed; // Speed (ms/frame)
+  boolean TextDirection; // Direction (0=left, 1=right)
+  int TextOrientation; // Text Orientation (1=left, 2=center, 3=right)
+  long DisplayTime; // Time for action Parola=[pause] (ms)
+  long NextTime; // Blank time to begin next action (ms) 
+  byte InEffect; // Incoming text effect (see numbers of texteffect_t)
+  byte OutEffect; // Fadeout text effect (see numbers of texteffect_t)
+  byte CountTime; // Counter time unit to calculate target date (1=seconds, 2=minutes, 3=hours, 4=days)
+  byte DateYear; // Target Date Year
+  byte DateMonth; // Target Date Month
+  byte DateDay; // Target Date Day
+  byte DateHour; // Target Date Hour
+  byte DateMinute; // Target Date Minute
+
+  String MQTTtopic; // MQTT Topic to subscribe
+  String MQTThost; // MQTT broker host
+  String MQTTuser; // MQTT User data
+  String MQTTpwd; // MQTT Password data
+  String MQTTport; // MQTT Port
+  boolean MQTTssl; // SSL active (1=active) 
+  String MQTTsslport;// MQTT SSL Port  
+  String MQTTwebsport; //Websockets port (for TSL only)
+};
+
+
+
+
+
 #define MAX_VALUES 12
 
 class DataBuffer {
