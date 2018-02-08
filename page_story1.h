@@ -14,9 +14,68 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <a href="admin.html"  class="btn btn--red">ZURÜCK</a>&nbsp;&nbsp;<strong>Szene 01</strong>&nbsp;&nbsp;
 <a href="admin.html"  class="btn btn--s"><</a>&nbsp;
 <a href="story2.html"  class="btn btn--s">></a>
+<td align="right">Ordnungsnummer:</td>
+<td><input type="text" id="StoryOrderNo" name="StoryOrderNo" value=""></td>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2">Anzeigeneinstellung:</td>
+</tr>
+
+<tr>
+  <td align="right"> Automatische Helligkeitsregelung aktiv:</td>
+  <td><input type="checkbox" id="AISOn" name="AISOn"></td>
+</tr>
+
+<tr>
+  <td align="right"> Minimalwert Helligkeitssensor:</td>
+  <td><input type="text" id="AISmin" name="AISmin" size="2" value="06"></td>
+</tr>
+
+<tr>
+  <td align="right"> Maximalwert Helligkeitssensor:</td>
+  <td><input type="text" id="AISmax" name="AISmax" size="2" value="15"></td>
+</tr>
+
+<tr>
+  <td align="right"> Statische Anzeigenhelligkeit:</td>
+  <td><input type="text" id="DisplayIntensity" name="DisplayIntensity" size="2" value="10"></td>
+</tr>
+
+<select>
+  <option ActionNo="0">-keine Aktion-</option>
+  <option ActionNo="1">Textinformation</option>
+  <option ActionNo="2">Temperaturanzeige</option>
+  <option ActionNo="3">Luftfeuchtigkeitsanzeige</option>
+  <option ActionNo="4">Helligkeitsanzeige</option>
+  <option ActionNo="5">Aktuelle Zeitanzeige</option>
+  <option ActionNo="6">Aktuelle Datumsanzeige</option>
+  <option ActionNo="7">Anzeige Zieltermin</option>
+  <option ActionNo="8">Countdown Zieltermin Tage</option>
+  <option ActionNo="9">Countdown Zieltermin Stunden</option>
+  <option ActionNo="10">Countdown Zieltermin Minuten</option>
+  <option ActionNo="11">Anzeige MQTT Topic</option>
+  <option ActionNo="12">Anzeige Topic FabLab Bayreuth</option>
+  <option ActionNo="13">Pfeil rechts</option>
+  <option ActionNo="14">Pfeil links</option>
+  <option ActionNo="15">Pfeil oben</option>
+  <option ActionNo="16">Pfeil unten</option>
+  <option ActionNo="17">Animation Herz</option>
+  <option ActionNo="18">Animation PacMan</option>
+  <option ActionNo="19">Animation Knight Rider</option>
+  <option ActionNo="20">Animation Bouncing Ball</option>
+  <option ActionNo="21">Animation Wurm</option>
+  <option ActionNo="22">Animation Pixel</option>
+  <option ActionNo="23">Animation Flash</option>
+  <option ActionNo="24">Animation Vorhang</option>
+</select>
+
 <tr>
 	<td align="right">Gerätename:</td>
 	<td><input type="text" id="devicename" name="devicename" value=""></td>

@@ -24,6 +24,8 @@ long previousLED = 0;        // will store last time LED was updated
 long LEDinterval = 300;     // by PWM variable interval at which to blink (milliseconds)
 long LEDpuls = 300;         // interval at which to blink (milliseconds)
 
+byte StoryInstances = 0;    // number of configured story instances for current storybook
+
 ThingerWifi *thing; // Platzhalter für spaetere ThingerWifi Instanz
 
 struct strConfig {
@@ -63,6 +65,8 @@ struct strConfig {
 }   config;
 
 struct strStory {
+  int StoryOrderNo; // Number for order of storybook 
+  int LastStoryNo; // Last number for order of storybook 
   boolean AISOn; // Auto Intensity Sensor On (1=active)
   byte AISmin;  // AIS minimum level (0...15) 
   byte AISmax;  // AIS maximum level (0...15)
@@ -72,7 +76,7 @@ struct strStory {
   String Textmessage;
   int  TextSpeed; // Speed (ms/frame)
   boolean TextDirection; // Direction (0=left, 1=right)
-  int TextOrientation; // Text Orientation (1=left, 2=center, 3=right)
+  byte TextOrientation; // Text Orientation (1=left, 2=center, 3=right)
   long DisplayTime; // Time for action Parola=[pause] (ms)
   long NextTime; // Blank time to begin next action (ms) 
   byte InEffect; // Incoming text effect (see numbers of texteffect_t)
@@ -92,7 +96,8 @@ struct strStory {
   boolean MQTTssl; // SSL active (1=active) 
   String MQTTsslport; // MQTT SSL Port  
   String MQTTwebsport; //Websockets port (for TSL only)
-};
+}   story0;
+
 
 
 
@@ -425,6 +430,88 @@ void WriteConfig()
   EEPROM.commit();
 }
 
+
+boolean ReadStory()
+{
+
+  Serial.println("Reading Storybook");
+  if ( StoryInstances >> 0 )
+  {
+    Serial.println("Story Found!");
+
+    story0.StoryOrderNo = EEPROMReadint(512);
+    story0.LastStoryNo = EEPROMReadint(514);
+    story0.AISOn = EEPROM.read(516);
+    story0.AISmin = EEPROM.read(517);
+    story0.AISmax = EEPROM.read(518);
+    story0.DisplayIntensity = EEPROM.read(519);
+    story0.ActionNo = EEPROMReadint(520);
+    story0.Textmessage = ReadStringFromEEPROM(522);
+    story0.TextSpeed = EEPROMReadint(650);
+    story0.TextDirection = EEPROM.read(652);
+    story0.TextOrientation = EEPROM.read(653);
+    story0.DisplayTime = EEPROMReadlong(654); // 4 Byte
+    story0.NextTime = EEPROMReadlong(658); // 4 Byte
+    story0.InEffect = EEPROM.read(662);
+    story0.OutEffect = EEPROM.read(663);
+    story0.CountTime = EEPROM.read(664);
+    story0.DateYear = EEPROM.read(665);
+    story0.DateMonth = EEPROM.read(666);
+    story0.DateDay = EEPROM.read(667);
+    story0.DateHour = EEPROM.read(668);
+    story0.DateMinute = EEPROM.read(669);
+    story0.MQTTtopic = ReadStringFromEEPROM(670);
+    story0.MQTThost = ReadStringFromEEPROM(798);
+    story0.MQTTuser = ReadStringFromEEPROM(926);
+    story0.MQTTpwd = ReadStringFromEEPROM(950);
+    story0.MQTTport = ReadStringFromEEPROM(962);
+    story0.MQTTssl = EEPROM.read(967); //1byte
+    story0.MQTTsslport = ReadStringFromEEPROM(968); //5bytes 
+    story0.MQTTwebsport = ReadStringFromEEPROM(973); //5bytes 
+    return true;
+  }
+  else
+  {
+    Serial.println("Storybook NOT FOUND!!!!");
+    return false;
+  }
+}
+
+void WriteStorybook()
+{
+  Serial.println("Writing Storybook");
+ 
+  EEPROMWriteint(512,story0.StoryOrderNo);
+  EEPROMWriteint(514,story0.LastStoryNo);
+  EEPROM.write(516,story0.AISOn);
+  EEPROM.write(517,story0.AISmin);
+  EEPROM.write(518,story0.AISmax);
+  EEPROM.write(519,story0.DisplayIntensity);  
+  EEPROMWriteint(520,story0.ActionNo);
+  WriteStringToEEPROM(522,story0.Textmessage);
+  EEPROMWriteint(650,story0.TextSpeed);
+  EEPROM.write(652,story0.TextDirection);
+  EEPROM.write(653,story0.TextOrientation);
+  EEPROMWritelong(654,story0.DisplayTime);
+  EEPROMWritelong(658,story0.NextTime);  
+  EEPROM.write(662,story0.InEffect);
+  EEPROM.write(663,story0.OutEffect);
+  EEPROM.write(664,story0.CountTime);
+  EEPROM.write(665,story0.DateYear);
+  EEPROM.write(666,story0.DateMonth);
+  EEPROM.write(667,story0.DateDay);
+  EEPROM.write(668,story0.DateHour);
+  EEPROM.write(669,story0.DateMinute);  
+  WriteStringToEEPROM(670,story0.MQTTtopic); //128bytes
+  WriteStringToEEPROM(798,story0.MQTThost); //128bytes
+  WriteStringToEEPROM(926,story0.MQTTuser); //24bytes
+  WriteStringToEEPROM(950,story0.MQTTpwd); //12bytes
+  WriteStringToEEPROM(962,story0.MQTTport); //5bytes
+  EEPROM.write(967,story0.MQTTssl); //1byte
+  WriteStringToEEPROM(968,story0.MQTTsslport); //5bytes  
+  WriteStringToEEPROM(973,story0.MQTTwebsport); //5bytes
+  EEPROM.commit();
+}
 
 
 

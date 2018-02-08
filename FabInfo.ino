@@ -24,8 +24,8 @@
 #include "global.h"
 
 // NOTE: MD_MAX72xx library must be installed and configured for the LED
-// matrix type being used. Refer documentation included in the MD_MAX72xx
-// library or see this link:
+// matrix type USE_FC16_HW being used. Refer documentation included in 
+// the MD_MAX72xx library or see this link:
 // https://majicdesigns.github.io/MD_MAX72XX/page_hardware.html
 
 // define program settings
@@ -34,7 +34,7 @@
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 600  // Defines the Time in Seconds, when the Admin-Mode will be diabled
 
-// PAROLA define setting of FC-16 LED matrix modules and SPI
+// PAROLA define setting of FC-16 LED matrix modules and hardware SPI
 // Vcc       3v3     LED matrix work at 3.3V
 // GND       GND     GND
 // DIN        D7     HSPID or HMOSI
