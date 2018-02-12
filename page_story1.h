@@ -27,9 +27,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="left" colspan="2"><b>Szenenaktion:</b></td>
-</tr>
-
-<select name="ActionNo">
+  <select name="ActionNo">
   <option value="0">-keine Aktion-</option>
   <option value="1">Textinformation</option>
   <option value="2">Temperaturanzeige</option>
@@ -56,6 +54,182 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
   <option value="23">Animation Flash</option>
   <option value="24">Animation Vorhang</option>
 </select>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Anzeigeninhalt:</b></td>
+</tr>
+
+<tr>
+  <td align="right">Anzeigen Text:</td>
+  <td><input type="text" id="Textmessage" name="Textmessage" size="128" value="...Textnachricht"></td>
+</tr>
+
+<tr>
+  <td align="right"> Textgeschwindigkeit:</td>
+  <td><input type="text" id="TextSpeed" name="TextSpeed" size="4" value="100"> ms</td>
+</tr>
+
+<tr>
+  <td align="right"> Textrichtung:</td>
+<form><td>
+  <input type="radio" name="TextDirection" value="0" checked> links<br>
+  <input type="radio" name="TextDirection" value="1"> rechts<br>
+</form></td>
+</tr>
+
+<tr>
+  <td align="right"> Textausrichtung:</td>
+<form><td>
+  <input type="radio" name="TextOrientation" value="0" checked> links<br>
+    <input type="radio" name="TextOrientation" value="1"> Mitte<br>
+  <input type="radio" name="TextOrientation" value="1"> rechts<br>
+</form></td>
+</tr>
+
+<tr>
+  <td align="right"> Anzeigezeit:</td>
+  <td><input type="text" id="DisplayTime" name="DisplayTime" size="6" value="3000"> ms</td>
+</tr>
+
+<tr>
+  <td align="right"> Pause nach Aktion:</td>
+  <td><input type="text" id="NextTime" name="NextTime" size="6" value="500"> ms</td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Eingangseffekt:</b></td>
+  <select name="InEffect">
+  <option value="PA_PRINT">PRINT</option>
+  <option value="PA_SLICE">SLICE</option>
+  <option value="PA_MESH">MESH</option>
+  <option value="PA_FADE">FADE</option>
+  <option value="PA_WIPE">WIPE</option>
+  <option value="PA_WIPE_CURSOR">WPE_C</option>
+  <option value="PA_OPENING">OPEN</option>
+  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
+  <option value="PA_CLOSING">CLOSE</option>
+  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
+  <option value="PA_RANDOM">RAND</option>
+  <option value="PA_BLINDS">BLIND</option>
+  <option value="PA_DISSOLVE">DISSOLVE</option>
+  <option value="PA_SCROLL_UP">SCROLL UP</option>
+  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
+  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
+  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
+  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
+  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
+  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
+  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
+  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
+  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
+  <option value="PA_SCAN_VERT">SCAN VERT</option>
+  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
+  <option value="PA_GROW_UP">GROW UP</option>
+  <option value="PA_GROW_DOWN">GROW DOWN</option>  
+</select>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Ausgangseffekt:</b></td>
+  <select name="OutEffect">
+  <option value="PA_PRINT">PRINT</option>
+  <option value="PA_SLICE">SLICE</option>
+  <option value="PA_MESH">MESH</option>
+  <option value="PA_FADE">FADE</option>
+  <option value="PA_WIPE">WIPE</option>
+  <option value="PA_WIPE_CURSOR">WPE_C</option>
+  <option value="PA_OPENING">OPEN</option>
+  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
+  <option value="PA_CLOSING">CLOSE</option>
+  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
+  <option value="PA_RANDOM">RAND</option>
+  <option value="PA_BLINDS">BLIND</option>
+  <option value="PA_DISSOLVE">DISSOLVE</option>
+  <option value="PA_SCROLL_UP">SCROLL UP</option>
+  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
+  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
+  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
+  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
+  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
+  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
+  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
+  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
+  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
+  <option value="PA_SCAN_VERT">SCAN VERT</option>
+  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
+  <option value="PA_GROW_UP">GROW UP</option>
+  <option value="PA_GROW_DOWN">GROW DOWN</option>  
+</select>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Zähler Einstellungen:</b></td>
+</tr>
+  <td align="right"> (Countdown)</td>
+
+<tr>
+  <td align="right"> Zähler Einheit:</td>
+<form><td>
+  <input type="radio" name="CountTime" value="1" checked> Sekunden<br>
+  <input type="radio" name="CountTime" value="2"> Minuten<br>
+  <input type="radio" name="CountTime" value="3"> Stunden<br>
+  <input type="radio" name="CountTime" value="4"> Tage<br>  
+</form></td>
+</tr>  
+
+<tr>
+  <td align="right"> Zielzeit:</td>
+  <td><input type="text" id="DateHour" name="DateHour" size="2" value="13">:<input type="text" id="DateMinute" name="DateMinute" size="2" value="00"> Uhr</td>
+</tr>
+<tr>
+  <td align="right"> Zieldatum:</td>
+  <td><input type="text" id="DateDay" name="DateDay" size="2" value="07">.<input type="text" id="DateMonth" name="DateMonth" size="2" value="04">.<input type="text" id="DateYear" name="DateYear" size="4" value="2018"></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>IoT MQTT Inhalt:</b></td>
+</tr>
+
+<tr>
+	<td align="right">MQTT Topic:</td>
+	<td><input type="text" id="MQTTtopic" name="MQTTtopic" size="32" value="/FabInfo/news"></td>
+</tr>
+<tr>
+  <td align="right"> MQTT broker host:</td>
+  <td><input type="checkbox" id="MQTThost" name="MQTThost" size="32" value="...fablab-bayreuth.de"></td>
+</tr>
+<tr>
+  <td align="right">MQTT User data:</td>
+  <td><input type="text" id="MQTTuser" name="MQTTuser" value="" size="32" value="...MQTT user"></td>
+</tr>
+<tr>
+  <td align="right">MQTT Port:</td>
+  <td><input type="text" id="MQTTport" name="MQTTport" size="4" value="1883"></td>
+</tr>
+
+<tr>
+  <td align="right"> SSL aktiv:</td>
+  <td><input type="checkbox" id="MQTTssl" name="MQTTssl"></td>
+</tr>
+
+<tr>
+  <td align="right">MQTT SSL Port:</td>
+  <td><input type="text" id="MQTTsslport" name="MQTTsslport" size="4" value="8883"></td>
+</tr>
+
+<tr>
+  <td align="right">TSL Websocket Port:</td>
+  <td><input type="text" id="MQTTwebsport" name="MQTTwebsport" size="4" value="8883"></td>
+</tr>
 
 
 <tr>
@@ -89,127 +263,6 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <tr>
   <td align="left" colspan="2"><hr></td>
 </tr>
-
-<tr>
-  <td align="left" colspan="2"><b>Anzeigeninhalt:</b></td>
-</tr>
-
-<tr>
-  <td align="right">Anzeigen Text:</td>
-  <td><input type="text" id="Textmessage" name="Textmessage" size="128" value="...Textnachricht"></td>
-</tr>
-
-<tr>
-  <td align="right"> Textgeschwindigkeit:</td>
-  <td><input type="text" id="TextSpeed" name="TextSpeed" size="4" value="00"> (ms)</td>
-</tr>
-
-<tr>
-  <td align="right"> Textrichtung:</td>
-<form><td>
-  <input type="radio" name="TextDirection" value="0" checked> links<br>
-  <input type="radio" name="TextDirection" value="1"> rechts<br>
-</form></td>
-</tr>
-
-
-
-
-
-
-
-<tr>
-	<td align="right">Gerätename:</td>
-	<td><input type="text" id="devicename" name="devicename" value=""></td>
-</tr>
-<tr>
-  <td align="right"> IoT Client aktiv:</td>
-  <td><input type="checkbox" id="iotenabled" name="iotenabled"></td>
-</tr>
-<tr>
-  <td align="right">IoT User Name:</td>
-  <td><input type="text" id="iotusername" name="iotusername" value=""></td>
-</tr>
-<tr>
-  <td align="right">IoT Device ID:</td>
-  <td><input type="text" id="iotdeviceid" name="iotdeviceid" value=""></td>
-</tr>
-<tr>
-  <td align="right">IoT Credential:</td>
-  <td><input type="text" id="iotcredential" name="iotcredential" value=""></td>
-</tr>
-
-<tr>
-	<td align="left" colspan="2"><hr></td>
-</tr>
-
-<tr>
-	<td align="left" colspan="2">FabInfo IoT Zeitsteuerung:</td>
-</tr>
-<tr>
-	<td align="right"> IoT Zeitsteuerung aktiv:</td>
-	<td><input type="checkbox" id="tonenabled" name="tonenabled"></td>
-</tr>
-
-<tr>
-	<td align="right"> Einschaltzeit:</td>
-	<td><input type="text" id="tonhour" name="tonhour" size="2" value="00">:<input type="text" id="tonminute" name="tonminute" size="2" value="00"></td>
-</tr>
-<tr>
-	<td align="right"> Ausschaltzeit:</td>
-	<td><input type="text" id="toffhour" name="toffhour" size="2" value="00">:<input type="text" id="toffminute" name="toffminute" size="2" value="00"></td>
-</tr>
-
-<tr>
-	<td align="left" colspan="2"><hr></td>
-</tr>
-
-<tr>
-	<td align="left" colspan="2">Sensoreinstellung:</td>
-</tr>
-
-<tr>
-	<td align="right"> Sensor auslesen:</td>
-	<td><input type="text" id="sensrefreshtime" name="sensrefreshtime" size="3" value="1"> Minuten (0=deaktiv)</td>
-</tr>
-
-<tr>
-  <td align="left" colspan="2"><hr></td>
-</tr>
-
-<tr>
-  <td align="left" colspan="2">Sensor Kalibrierung:</td>
-</tr>
-
-<tr>
-	<td align="right"> Messwert für Maximalanzeige:</td>
-	<td><input type="text" id="senscalmaxL" name="senscalmaxL" size="3" value="900"></td>
-</tr>
-
-<tr>
-  <td align="right"> Messwert für Minimalanzeige:</td>
-  <td><input type="text" id="senscalminL" name="senscalminL" size="3" value="50"></td>
-</tr>
-
-<tr>
-  <td align="right"> Kalibrierfaktor:</td>
-  <td><input type="text" id="senscalcH" name="senscalcH" size="3" value=""></td>
-</tr>
-
-<tr>
-  <td align="left" colspan="2"><hr></td>
-</tr>
-
-<tr>
-  <td align="left" colspan="2">LED Anzeige:</td>
-</tr>
-
-<tr>
-  <td align="right"> LED Status aktiv:</td>
-  <td><input type="checkbox" id="ledenabled" name="ledenabled"></td>
-</tr>
-
-<tr><td colspan="2" align="center"><input type="submit" style="width:150px" class="btn btn--m btn--red" value="SPEICHERN"></td></tr>
 
 
 </table>
