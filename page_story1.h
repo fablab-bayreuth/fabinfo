@@ -15,17 +15,55 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <a href="admin.html"  class="btn btn--s"><</a>&nbsp;
 <a href="story2.html"  class="btn btn--s">></a>
 <td align="right">Ordnungsnummer:</td>
-<td><input type="text" id="StoryOrderNo" name="StoryOrderNo" value=""></td>
+<td><input type="text" id="StoryOrderNo" name="StoryOrderNo" size="2" value="01"></td>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
+
 
 <tr>
   <td align="left" colspan="2"><hr></td>
 </tr>
 
 <tr>
-  <td align="left" colspan="2">Anzeigeneinstellung:</td>
+  <td align="left" colspan="2"><b>Szenenaktion:</b></td>
+</tr>
+
+<select name="ActionNo">
+  <option value="0">-keine Aktion-</option>
+  <option value="1">Textinformation</option>
+  <option value="2">Temperaturanzeige</option>
+  <option value="3">Luftfeuchtigkeitsanzeige</option>
+  <option value="4">Helligkeitsanzeige</option>
+  <option value="5">Aktuelle Zeitanzeige</option>
+  <option value="6">Aktuelle Datumsanzeige</option>
+  <option value="7">Anzeige Zieltermin</option>
+  <option value="8">Countdown Zieltermin Tage</option>
+  <option value="9">Countdown Zieltermin Stunden</option>
+  <option value="10">Countdown Zieltermin Minuten</option>
+  <option value="11">Anzeige MQTT Topic</option>
+  <option value="12">Anzeige Topic FabLab Bayreuth</option>
+  <option value="13">Pfeil rechts</option>
+  <option value="14">Pfeil links</option>
+  <option value="15">Pfeil oben</option>
+  <option value="16">Pfeil unten</option>
+  <option value="17">Animation Herz</option>
+  <option value="18">Animation PacMan</option>
+  <option value="19">Animation Knight Rider</option>
+  <option value="20">Animation Bouncing Ball</option>
+  <option value="21">Animation Wurm</option>
+  <option value="22">Animation Pixel</option>
+  <option value="23">Animation Flash</option>
+  <option value="24">Animation Vorhang</option>
+</select>
+
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Anzeigeneinstellung:</b></td>
 </tr>
 
 <tr>
@@ -48,33 +86,37 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
   <td><input type="text" id="DisplayIntensity" name="DisplayIntensity" size="2" value="10"></td>
 </tr>
 
-<select>
-  <option ActionNo="0">-keine Aktion-</option>
-  <option ActionNo="1">Textinformation</option>
-  <option ActionNo="2">Temperaturanzeige</option>
-  <option ActionNo="3">Luftfeuchtigkeitsanzeige</option>
-  <option ActionNo="4">Helligkeitsanzeige</option>
-  <option ActionNo="5">Aktuelle Zeitanzeige</option>
-  <option ActionNo="6">Aktuelle Datumsanzeige</option>
-  <option ActionNo="7">Anzeige Zieltermin</option>
-  <option ActionNo="8">Countdown Zieltermin Tage</option>
-  <option ActionNo="9">Countdown Zieltermin Stunden</option>
-  <option ActionNo="10">Countdown Zieltermin Minuten</option>
-  <option ActionNo="11">Anzeige MQTT Topic</option>
-  <option ActionNo="12">Anzeige Topic FabLab Bayreuth</option>
-  <option ActionNo="13">Pfeil rechts</option>
-  <option ActionNo="14">Pfeil links</option>
-  <option ActionNo="15">Pfeil oben</option>
-  <option ActionNo="16">Pfeil unten</option>
-  <option ActionNo="17">Animation Herz</option>
-  <option ActionNo="18">Animation PacMan</option>
-  <option ActionNo="19">Animation Knight Rider</option>
-  <option ActionNo="20">Animation Bouncing Ball</option>
-  <option ActionNo="21">Animation Wurm</option>
-  <option ActionNo="22">Animation Pixel</option>
-  <option ActionNo="23">Animation Flash</option>
-  <option ActionNo="24">Animation Vorhang</option>
-</select>
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Anzeigeninhalt:</b></td>
+</tr>
+
+<tr>
+  <td align="right">Anzeigen Text:</td>
+  <td><input type="text" id="Textmessage" name="Textmessage" size="128" value="...Textnachricht"></td>
+</tr>
+
+<tr>
+  <td align="right"> Textgeschwindigkeit:</td>
+  <td><input type="text" id="TextSpeed" name="TextSpeed" size="4" value="00"> (ms)</td>
+</tr>
+
+<tr>
+  <td align="right"> Textrichtung:</td>
+<form><td>
+  <input type="radio" name="TextDirection" value="0" checked> links<br>
+  <input type="radio" name="TextDirection" value="1"> rechts<br>
+</form></td>
+</tr>
+
+
+
+
+
+
 
 <tr>
 	<td align="right">Gerätename:</td>
