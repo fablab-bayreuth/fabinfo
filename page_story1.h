@@ -26,8 +26,9 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td align="left" colspan="2"><b>Szenenaktion:</b></td>
-  <select name="ActionNo">
+  <td>
+  <label><b>Szenenaktion:</b>
+  <select name="ActionNo" size="1">
   <option value="0">-keine Aktion-</option>
   <option value="1">Textinformation</option>
   <option value="2">Temperaturanzeige</option>
@@ -53,16 +54,94 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
   <option value="22">Animation Pixel</option>
   <option value="23">Animation Flash</option>
   <option value="24">Animation Vorhang</option>
-</select>
+  </select>
+  </label>
+  </td>
 </tr>
 
 <tr>
-  <td align="left" colspan="2"><b>Anzeigeninhalt:</b></td>
+  <td>
+  <label><b>Eingangseffekt:</b>
+  <select name="InEffect" size="1">
+  <option value="PA_PRINT">PRINT</option>
+  <option value="PA_SLICE">SLICE</option>
+  <option value="PA_MESH">MESH</option>
+  <option value="PA_FADE">FADE</option>
+  <option value="PA_WIPE">WIPE</option>
+  <option value="PA_WIPE_CURSOR">WPE_C</option>
+  <option value="PA_OPENING">OPEN</option>
+  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
+  <option value="PA_CLOSING">CLOSE</option>
+  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
+  <option value="PA_RANDOM">RAND</option>
+  <option value="PA_BLINDS">BLIND</option>
+  <option value="PA_DISSOLVE">DISSOLVE</option>
+  <option value="PA_SCROLL_UP">SCROLL UP</option>
+  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
+  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
+  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
+  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
+  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
+  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
+  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
+  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
+  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
+  <option value="PA_SCAN_VERT">SCAN VERT</option>
+  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
+  <option value="PA_GROW_UP">GROW UP</option>
+  <option value="PA_GROW_DOWN">GROW DOWN</option>  
+  </select>
+  </label>
+  </td>
 </tr>
 
 <tr>
-  <td align="right">Anzeigen Text:</td>
+  <td>
+  <label><b>Ausgangseffekt:</b>
+  <select name="OutEffect" size="1">
+  <option value="PA_PRINT">PRINT</option>
+  <option value="PA_SLICE">SLICE</option>
+  <option value="PA_MESH">MESH</option>
+  <option value="PA_FADE">FADE</option>
+  <option value="PA_WIPE">WIPE</option>
+  <option value="PA_WIPE_CURSOR">WPE_C</option>
+  <option value="PA_OPENING">OPEN</option>
+  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
+  <option value="PA_CLOSING">CLOSE</option>
+  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
+  <option value="PA_RANDOM">RAND</option>
+  <option value="PA_BLINDS">BLIND</option>
+  <option value="PA_DISSOLVE">DISSOLVE</option>
+  <option value="PA_SCROLL_UP">SCROLL UP</option>
+  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
+  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
+  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
+  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
+  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
+  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
+  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
+  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
+  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
+  <option value="PA_SCAN_VERT">SCAN VERT</option>
+  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
+  <option value="PA_GROW_UP">GROW UP</option>
+  <option value="PA_GROW_DOWN">GROW DOWN</option>  
+  </select>
+  </label>
+  </td>
+</tr>
+
+<tr>
+  <td align="left"><b>Textinformation:</b></td>
   <td><input type="text" id="Textmessage" name="Textmessage" size="128" value="...Textnachricht"></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Einstellungen Text Information:</b></td>
 </tr>
 
 <tr>
@@ -88,7 +167,15 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td align="right"> Anzeigezeit:</td>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr>
+  <td align="left" colspan="2"><b>Einstellungen Szene:</b></td>
+</tr>
+
+<tr>
+  <td align="right"> Szenen Anzeigezeit:</td>
   <td><input type="text" id="DisplayTime" name="DisplayTime" size="6" value="3000"> ms</td>
 </tr>
 
@@ -98,79 +185,12 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td align="left" colspan="2"><b>Eingangseffekt:</b></td>
-  <select name="InEffect">
-  <option value="PA_PRINT">PRINT</option>
-  <option value="PA_SLICE">SLICE</option>
-  <option value="PA_MESH">MESH</option>
-  <option value="PA_FADE">FADE</option>
-  <option value="PA_WIPE">WIPE</option>
-  <option value="PA_WIPE_CURSOR">WPE_C</option>
-  <option value="PA_OPENING">OPEN</option>
-  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
-  <option value="PA_CLOSING">CLOSE</option>
-  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
-  <option value="PA_RANDOM">RAND</option>
-  <option value="PA_BLINDS">BLIND</option>
-  <option value="PA_DISSOLVE">DISSOLVE</option>
-  <option value="PA_SCROLL_UP">SCROLL UP</option>
-  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
-  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
-  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
-  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
-  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
-  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
-  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
-  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
-  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
-  <option value="PA_SCAN_VERT">SCAN VERT</option>
-  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
-  <option value="PA_GROW_UP">GROW UP</option>
-  <option value="PA_GROW_DOWN">GROW DOWN</option>  
-</select>
-</tr>
-
-<tr>
-  <td align="left" colspan="2"><b>Ausgangseffekt:</b></td>
-  <select name="OutEffect">
-  <option value="PA_PRINT">PRINT</option>
-  <option value="PA_SLICE">SLICE</option>
-  <option value="PA_MESH">MESH</option>
-  <option value="PA_FADE">FADE</option>
-  <option value="PA_WIPE">WIPE</option>
-  <option value="PA_WIPE_CURSOR">WPE_C</option>
-  <option value="PA_OPENING">OPEN</option>
-  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
-  <option value="PA_CLOSING">CLOSE</option>
-  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
-  <option value="PA_RANDOM">RAND</option>
-  <option value="PA_BLINDS">BLIND</option>
-  <option value="PA_DISSOLVE">DISSOLVE</option>
-  <option value="PA_SCROLL_UP">SCROLL UP</option>
-  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
-  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
-  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
-  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
-  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
-  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
-  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
-  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
-  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
-  <option value="PA_SCAN_VERT">SCAN VERT</option>
-  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
-  <option value="PA_GROW_UP">GROW UP</option>
-  <option value="PA_GROW_DOWN">GROW DOWN</option>  
-</select>
-</tr>
-
-<tr>
   <td align="left" colspan="2"><hr></td>
 </tr>
 
 <tr>
-  <td align="left" colspan="2"><b>Zähler Einstellungen:</b></td>
+  <td align="left" colspan="2"><b>Zähler Einstellungen:</b> (Countdown)</td>
 </tr>
-  <td align="right"> (Countdown)</td>
 
 <tr>
   <td align="right"> Zähler Einheit:</td>
