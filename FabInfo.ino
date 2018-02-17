@@ -1,5 +1,5 @@
 /*
-  FabInfo Version 0.1  by JTL / thirsch
+  FabInfo Version 0.2  by JTL / thirsch
 
   Configurator Engine based on ESP_WebConfig
   Special thanks to John Lassen
@@ -29,7 +29,7 @@
 // https://majicdesigns.github.io/MD_MAX72XX/page_hardware.html
 
 // define program settings
-#define PGNV "0.1"
+#define PGNV "0.2"
 #define ACCESS_POINT_NAME  "FabInfo"
 #define ACCESS_POINT_PASSWORD  "12345678"
 #define AdminTimeOut 600  // Defines the Time in Seconds, when the Admin-Mode will be diabled
@@ -166,6 +166,8 @@ void setup ( void ) {
   server.on ( "/admin/ntpvalues", send_NTP_configuration_values_html );
   
   server.on ( "/admin/generalvalues", send_general_configuration_values_html);
+
+  server.on ( "/admin/story1values", send_story1_configuration_values_html);
   
   server.on ( "/admin/IoTRLS",     send_IoTRLS_value_html);
 

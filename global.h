@@ -477,7 +477,7 @@ boolean ReadStory()
   }
 }
 
-void WriteStorybook()
+void WriteStory()
 {
   Serial.println("Writing Storybook");
  

@@ -15,7 +15,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <a href="admin.html"  class="btn btn--s"><</a>&nbsp;
 <a href="story2.html"  class="btn btn--s">></a>
 <td align="right">Ordnungsnummer:</td>
-<td><input type="text" id="StoryOrderNo" name="StoryOrderNo" size="2" value="01"></td>
+<td><input type="text" id="StoryOrderNo" name="StoryOrderNo" size="2" value="01" maxlength="2"></td>
 <hr>
 <form action="" method="post">
 <table border="0"  cellspacing="0" cellpadding="3" >
@@ -26,9 +26,8 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td>
-  <label><b>Szenenaktion:</b>
-  <select name="ActionNo" size="1">
+  <td align="left"><label><b>Szenenaktion:</b></td>
+  <td align="left"><select name="ActionNo" size="1">
   <option value="0">-keine Aktion-</option>
   <option value="1">Textinformation</option>
   <option value="2">Temperaturanzeige</option>
@@ -60,9 +59,8 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td>
-  <label><b>Eingangseffekt:</b>
-  <select name="InEffect" size="1">
+  <td align="left"><label><b>Eingangseffekt:</b></td>
+  <td align="left"><select name="InEffect" size="1">
   <option value="PA_PRINT">PRINT</option>
   <option value="PA_SLICE">SLICE</option>
   <option value="PA_MESH">MESH</option>
@@ -96,9 +94,8 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 </tr>
 
 <tr>
-  <td>
-  <label><b>Ausgangseffekt:</b>
-  <select name="OutEffect" size="1">
+  <td align="left"><label><b>Ausgangseffekt:</b></td>
+  <td align="left"><select name="OutEffect" size="1">
   <option value="PA_PRINT">PRINT</option>
   <option value="PA_SLICE">SLICE</option>
   <option value="PA_MESH">MESH</option>
@@ -133,7 +130,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="left"><b>Textinformation:</b></td>
-  <td><input type="text" id="Textmessage" name="Textmessage" size="128" value="...Textnachricht"></td>
+  <td align="left"><input type="text" id="Textmessage" name="Textmessage" size="32" maxlength="128" value="...Textnachricht"></td>
 </tr>
 
 <tr>
@@ -146,7 +143,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right"> Textgeschwindigkeit:</td>
-  <td><input type="text" id="TextSpeed" name="TextSpeed" size="4" value="100"> ms</td>
+  <td><input type="text" id="TextSpeed" name="TextSpeed" size="4" maxlength="4" value="100"> ms</td>
 </tr>
 
 <tr>
@@ -161,8 +158,8 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
   <td align="right"> Textausrichtung:</td>
 <form><td>
   <input type="radio" name="TextOrientation" value="0" checked> links<br>
-    <input type="radio" name="TextOrientation" value="1"> Mitte<br>
-  <input type="radio" name="TextOrientation" value="1"> rechts<br>
+  <input type="radio" name="TextOrientation" value="1"> Mitte<br>
+  <input type="radio" name="TextOrientation" value="2"> rechts<br>
 </form></td>
 </tr>
 
@@ -176,12 +173,12 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right"> Szenen Anzeigezeit:</td>
-  <td><input type="text" id="DisplayTime" name="DisplayTime" size="6" value="3000"> ms</td>
+  <td><input type="text" id="DisplayTime" name="DisplayTime" size="6" maxlength="6" value="3000"> ms</td>
 </tr>
 
 <tr>
   <td align="right"> Pause nach Aktion:</td>
-  <td><input type="text" id="NextTime" name="NextTime" size="6" value="500"> ms</td>
+  <td><input type="text" id="NextTime" name="NextTime" size="6" maxlength="6" value="500"> ms</td>
 </tr>
 
 <tr>
@@ -204,11 +201,11 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right"> Zielzeit:</td>
-  <td><input type="text" id="DateHour" name="DateHour" size="2" value="13">:<input type="text" id="DateMinute" name="DateMinute" size="2" value="00"> Uhr</td>
+  <td><input type="text" id="DateHour" name="DateHour" size="2" maxlength="2" value="13">:<input type="text" id="DateMinute" name="DateMinute" size="2" maxlength="2" value="00"> Uhr</td>
 </tr>
 <tr>
   <td align="right"> Zieldatum:</td>
-  <td><input type="text" id="DateDay" name="DateDay" size="2" value="07">.<input type="text" id="DateMonth" name="DateMonth" size="2" value="04">.<input type="text" id="DateYear" name="DateYear" size="4" value="2018"></td>
+  <td><input type="text" id="DateDay" name="DateDay" size="2" maxlength="2" value="07">.<input type="text" id="DateMonth" name="DateMonth" size="2" maxlength="2" value="04">.<input type="text" id="DateYear" name="DateYear" size="4" value="2018"></td>
 </tr>
 
 <tr>
@@ -221,19 +218,19 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
 	<td align="right">MQTT Topic:</td>
-	<td><input type="text" id="MQTTtopic" name="MQTTtopic" size="32" value="/FabInfo/news"></td>
+	<td><input type="text" id="MQTTtopic" name="MQTTtopic" size="32" maxlength="32" value="/FabInfo/news"></td>
 </tr>
 <tr>
   <td align="right"> MQTT broker host:</td>
-  <td><input type="checkbox" id="MQTThost" name="MQTThost" size="32" value="...fablab-bayreuth.de"></td>
+  <td><input type="text" id="MQTThost" name="MQTThost" size="32" maxlength="32" value="...fablab-bayreuth.de"></td>
 </tr>
 <tr>
   <td align="right">MQTT User data:</td>
-  <td><input type="text" id="MQTTuser" name="MQTTuser" value="" size="32" value="...MQTT user"></td>
+  <td><input type="text" id="MQTTuser" name="MQTTuser" value="" size="32" maxlength="32" value="...MQTT user"></td>
 </tr>
 <tr>
   <td align="right">MQTT Port:</td>
-  <td><input type="text" id="MQTTport" name="MQTTport" size="4" value="1883"></td>
+  <td><input type="text" id="MQTTport" name="MQTTport" size="4" maxlength="4" value="1883"></td>
 </tr>
 
 <tr>
@@ -243,12 +240,12 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right">MQTT SSL Port:</td>
-  <td><input type="text" id="MQTTsslport" name="MQTTsslport" size="4" value="8883"></td>
+  <td><input type="text" id="MQTTsslport" name="MQTTsslport" size="4" maxlength="4" value="8883"></td>
 </tr>
 
 <tr>
   <td align="right">TSL Websocket Port:</td>
-  <td><input type="text" id="MQTTwebsport" name="MQTTwebsport" size="4" value="8883"></td>
+  <td><input type="text" id="MQTTwebsport" name="MQTTwebsport" size="4" maxlength="4" value="8883"></td>
 </tr>
 
 
@@ -267,23 +264,28 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right"> Minimalwert Helligkeitssensor:</td>
-  <td><input type="text" id="AISmin" name="AISmin" size="2" value="06"></td>
+  <td><input type="text" id="AISmin" name="AISmin" size="2" maxlength="2" value="06"></td>
 </tr>
 
 <tr>
   <td align="right"> Maximalwert Helligkeitssensor:</td>
-  <td><input type="text" id="AISmax" name="AISmax" size="2" value="15"></td>
+  <td><input type="text" id="AISmax" name="AISmax" size="2" maxlength="2" value="15"></td>
 </tr>
 
 <tr>
   <td align="right"> Statische Anzeigenhelligkeit:</td>
-  <td><input type="text" id="DisplayIntensity" name="DisplayIntensity" size="2" value="10"></td>
+  <td><input type="text" id="DisplayIntensity" name="DisplayIntensity" size="2" maxlength="2" value="10"></td>
 </tr>
 
 <tr>
   <td align="left" colspan="2"><hr></td>
 </tr>
 
+<tr>
+  <td align="left" colspan="2"><hr></td>
+</tr>
+
+<tr><td colspan="2" align="left"><input type="submit" style="width:150px" class="btn btn--m btn--red" value="SPEICHERN"></td></tr>
 
 </table>
 </form>
@@ -302,34 +304,75 @@ window.onload = function ()
 )=====";
 
 
-
-
 void send_story1_html()
 {
-	
-	if (server.args() > 0 )  // Save Settings
-	{
-		config.AutoTurnOn = false;
-    config.IoTOn = false;
-    config.LEDOn = false;
+  if (server.args() > 0 )  // Save Settings
+  {
+    story0.AISOn = false;
+    story0.TextDirection = false;
+    story0.MQTTssl = false;
     
-		String temp = "";
-		for ( uint8_t i = 0; i < server.args(); i++ ) {
-
-		}
-		WriteConfig();
-    ConfigureIoT();
-		firstStart = true;
-    Sens_Value = -1;
-	}
-
-	server.send_P ( 200, "text/html", PAGE_Story1Settings ); 
-	Serial.println(__FUNCTION__); 
-	
-	
+    for ( uint8_t i = 0; i < server.args(); i++ ) {
+      if (server.argName(i) == "AISOn") story0.AISOn = true; 
+      if (server.argName(i) == "TextDirection") story0.TextDirection = true; 
+      if (server.argName(i) == "MQTTssl") story0.MQTTssl = true; 
+      if (server.argName(i) == "ActionNo") story0.ActionNo =  server.arg(i).toInt();  
+      if (server.argName(i) == "Textmessage") story0.Textmessage = urldecode(server.arg(i)); 
+      if (server.argName(i) == "TextSpeed") story0.TextSpeed =  server.arg(i).toInt();
+      if (server.argName(i) == "TextOrientation") story0.TextOrientation =  server.arg(i).toInt();
+      if (server.argName(i) == "DisplayTime") story0.DisplayTime =  server.arg(i).toInt();
+      if (server.argName(i) == "NextTime") story0.NextTime =  server.arg(i).toInt();
+      if (server.argName(i) == "InEffect") story0.InEffect =  server.arg(i).toInt();
+      if (server.argName(i) == "OutEffect") story0.OutEffect =  server.arg(i).toInt();
+      if (server.argName(i) == "CountTime") story0.CountTime =  server.arg(i).toInt();
+      if (server.argName(i) == "DateYear") story0.DateYear =  server.arg(i).toInt();
+      if (server.argName(i) == "DateMonth") story0.DateMonth =  server.arg(i).toInt();
+      if (server.argName(i) == "DateDay") story0.DateDay =  server.arg(i).toInt();
+      if (server.argName(i) == "DateHour") story0.DateHour =  server.arg(i).toInt();
+      if (server.argName(i) == "DateMinute") story0.DateMinute =  server.arg(i).toInt();
+      if (server.argName(i) == "MQTTtopic") story0.MQTTtopic = urldecode(server.arg(i));    
+      if (server.argName(i) == "MQTThost") story0.MQTThost = urldecode(server.arg(i));    
+      if (server.argName(i) == "MQTTuser") story0.MQTTuser = urldecode(server.arg(i));    
+      if (server.argName(i) == "MQTTpwd") story0.MQTTpwd = urldecode(server.arg(i));    
+      if (server.argName(i) == "MQTTport") story0.MQTTport = urldecode(server.arg(i));    
+      if (server.argName(i) == "MQTTsslport") story0.Textmessage = urldecode(server.arg(i));       
+      if (server.argName(i) == "MQTTwebsport") story0.Textmessage = urldecode(server.arg(i)); 
+      if (server.argName(i) == "AISmin") story0.AISmin =  server.arg(i).toInt();    
+      if (server.argName(i) == "AISmax") story0.AISmax =  server.arg(i).toInt();    
+      if (server.argName(i) == "DisplayIntensity") story0.DisplayIntensity =  server.arg(i).toInt();             
+    }
+    WriteStory();
+  }
+  server.send_P ( 200, "text/html", PAGE_Story1Settings ); 
+  Serial.println(__FUNCTION__);   
 }
 
 void send_story1_configuration_values_html()
 {
-
+  String values ="";
+  values += "iotenabled|" +  (String) (config.IoTOn ? "checked" : "") + "|chk\n";
+  values += "iotusername|" +  (String)  config.IoTUserName +  "|input\n";
+  values += "iotdeviceid|" +  (String)  config.IoTDeviceID +  "|input\n";
+  values += "iotcredential|" +  (String)  config.IoTCredential +  "|input\n"; 
+  values += "IoTRLS|" +  (String)  config.IoTRLS +  "|input\n";
+  values += "IoTRHS|" +  (String)  config.IoTRHS +  "|input\n";
+  values += "IoTRTS|" +  (String)  config.IoTRTS +  "|input\n";
+  values += "tonhour|" +  (String)  config.TurnOnHour +  "|input\n";
+  values += "tonminute|" +   (String) config.TurnOnMinute +  "|input\n";
+  values += "toffhour|" +  (String)  config.TurnOffHour +  "|input\n";
+  values += "toffminute|" +   (String)  config.TurnOffMinute +  "|input\n";
+  values += "tonenabled|" +  (String) (config.AutoTurnOn ? "checked" : "") + "|chk\n";
+  values += "ledenabled|" +  (String) (config.LEDOn ? "checked" : "") + "|chk\n";
+  values += "defaultactive|" +  (String) (config.DefaultOn ? "checked" : "") + "|chk\n";
+  values += "sensrefreshtime|" +   (String)  config.SensRefreshTime +  "|input\n";
+  values += "senscalmaxL|" +   (String)  config.SensCalMaxL +  "|input\n";
+  values += "senscalminL|" +   (String)  config.SensCalMinL +  "|input\n";
+  values += "senscalmaxH|" +   (String)  config.SensCalMaxH +  "|input\n";
+  values += "senscalminH|" +   (String)  config.SensCalMinH +  "|input\n";
+  values += "senscalmaxT|" +   (String)  config.SensCalMaxT +  "|input\n";
+  values += "senscalminT|" +   (String)  config.SensCalMinT +  "|input\n";    
+  values += "senscalcH|" +   (String)  config.SensCalcH +  "|input\n";
+  values += "senscalcT|" +   (String)  config.SensCalcT +  "|input\n";  
+  server.send ( 200, "text/plain", values);
+  Serial.println(__FUNCTION__); 
 }

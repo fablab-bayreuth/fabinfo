@@ -168,7 +168,7 @@ const char PAGE_AdminGeneralSettings[] PROGMEM =  R"=====(
 
 <tr>
   <td align="right"> Setze Konfiguration auf Auslieferungszustand zurück:</td>
-  <td><input type="checkbox" id="defaultactive" name="defaultactive"> (1=Standard zurück setzen!)</td>
+  <td><input type="checkbox" id="defaultactive" name="defaultactive"> (aktiv = Standard zurück setzen!)</td>
 </tr>
 
 <font color="red">
@@ -205,6 +205,8 @@ void send_IoTRLS_value_html()
 		
 	String values ="";
 	values += "IoTRLS|" + (String) config.IoTRLS + "|div\n";
+  values += "IoTRHS|" + (String) config.IoTRHS + "|div\n";
+  values += "IoTRTS|" + (String) config.IoTRTS + "|div\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
 	
@@ -220,7 +222,6 @@ void send_general_html()
     config.LEDOn = false;
     config.DefaultOn = false;
     
-		String temp = "";
 		for ( uint8_t i = 0; i < server.args(); i++ ) {
       if (server.argName(i) == "iotenabled") config.IoTOn = true; 
       if (server.argName(i) == "iotusername") config.IoTUserName = urldecode(server.arg(i)); 
