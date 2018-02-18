@@ -96,33 +96,33 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 <tr>
   <td align="left"><label><b>Ausgangseffekt:</b></td>
   <td align="left"><select name="OutEffect" size="1">
-  <option value="PA_PRINT">PRINT</option>
-  <option value="PA_SLICE">SLICE</option>
-  <option value="PA_MESH">MESH</option>
-  <option value="PA_FADE">FADE</option>
-  <option value="PA_WIPE">WIPE</option>
-  <option value="PA_WIPE_CURSOR">WPE_C</option>
-  <option value="PA_OPENING">OPEN</option>
-  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
-  <option value="PA_CLOSING">CLOSE</option>
-  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
-  <option value="PA_RANDOM">RAND</option>
-  <option value="PA_BLINDS">BLIND</option>
-  <option value="PA_DISSOLVE">DISSOLVE</option>
-  <option value="PA_SCROLL_UP">SCROLL UP</option>
-  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
-  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
-  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
-  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
-  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
-  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
-  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
-  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
-  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
-  <option value="PA_SCAN_VERT">SCAN VERT</option>
-  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
-  <option value="PA_GROW_UP">GROW UP</option>
-  <option value="PA_GROW_DOWN">GROW DOWN</option>  
+  <option value="1">PRINT</option>
+  <option value="2">SLICE</option>
+  <option value="3">MESH</option>
+  <option value="4">FADE</option>
+  <option value="5">WIPE</option>
+  <option value="6">WPE_C</option>
+  <option value="7">OPEN</option>
+  <option value="8">OPENING CURSOR</option>
+  <option value="9">CLOSE</option>
+  <option value="10">CLOSING CURSOR</option>
+  <option value="11">RAND</option>
+  <option value="12">BLIND</option>
+  <option value="13">DISSOLVE</option>
+  <option value="14">SCROLL UP</option>
+  <option value="15">SCROLL DOWN</option>
+  <option value="16">SCROLL LEFT</option>
+  <option value="17">SCROLL RIGHT</option>
+  <option value="18">SCROLL UP LEFT</option>
+  <option value="19">SCROLL UP RIGHT</option>
+  <option value="20">SCROLL DOWN LEFT</option>
+  <option value="21">SCROLL DOWN RIGHT</option>
+  <option value="22">SCAN HORIZ</option>
+  <option value="23">SCAN HORIZX</option>
+  <option value="24">SCAN VERT</option>
+  <option value="25">SCAN VERTX</option>
+  <option value="26">GROW UP</option>
+  <option value="27">GROW DOWN</option>  
   </select>
   </label>
   </td>
@@ -218,7 +218,7 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
 
 <tr>
 	<td align="right">MQTT Topic:</td>
-	<td><input type="text" id="MQTTtopic" name="MQTTtopic" size="32" maxlength="32" value="/FabInfo/news"></td>
+	<td><input type="text" id="MQTTtopic" name="MQTTtopic" size="32" maxlength="32" value="FabInfo/news"></td>
 </tr>
 <tr>
   <td align="right"> MQTT broker host:</td>
@@ -228,6 +228,12 @@ const char PAGE_Story1Settings[] PROGMEM =  R"=====(
   <td align="right">MQTT User data:</td>
   <td><input type="text" id="MQTTuser" name="MQTTuser" value="" size="32" maxlength="32" value="...MQTT user"></td>
 </tr>
+
+<tr>
+  <td align="right">MQTT User Password:</td>
+  <td><input type="text" id="MQTTpwd" name="MQTTpwd" value="" size="32" maxlength="32" value="...MQTT user PWD"></td>
+</tr>
+
 <tr>
   <td align="right">MQTT Port:</td>
   <td><input type="text" id="MQTTport" name="MQTTport" size="4" maxlength="4" value="1883"></td>

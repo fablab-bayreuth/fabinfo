@@ -272,6 +272,40 @@ void loop ( void ) {
   }
 
   blinkLED();
+
+/*
+ Effekt Zahl beginnend mit 1, PA_PRINT
+  <option value="PA_PRINT">PRINT</option>
+  <option value="PA_SLICE">SLICE</option>
+  <option value="PA_MESH">MESH</option>
+  <option value="PA_FADE">FADE</option>
+  <option value="PA_WIPE">WIPE</option>
+  <option value="PA_WIPE_CURSOR">WPE_C</option>
+  <option value="PA_OPENING">OPEN</option>
+  <option value="PA_OPENING_CURSOR">OPENING CURSOR</option>
+  <option value="PA_CLOSING">CLOSE</option>
+  <option value="PA_CLOSING_CURSOR">CLOSING CURSOR</option>
+  <option value="PA_RANDOM">RAND</option>
+  <option value="PA_BLINDS">BLIND</option>
+  <option value="PA_DISSOLVE">DISSOLVE</option>
+  <option value="PA_SCROLL_UP">SCROLL UP</option>
+  <option value="PA_SCROLL_DOWN">SCROLL DOWN</option>
+  <option value="PA_SCROLL_LEFT">SCROLL LEFT</option>
+  <option value="PA_SCROLL_RIGHT">SCROLL RIGHT</option>
+  <option value="PA_SCROLL_UP_LEFT">SCROLL UP LEFT</option>
+  <option value="PA_SCROLL_UP_RIGHT">SCROLL UP RIGHT</option>
+  <option value="PA_SCROLL_DOWN_LEFT">SCROLL DOWN LEFT</option>
+  <option value="PA_SCROLL_DOWN_RIGHT">SCROLL DOWN RIGHT</option>
+  <option value="PA_SCAN_HORIZ">SCAN HORIZ</option>
+  <option value="PA_SCAN_HORIZX">SCAN HORIZX</option>
+  <option value="PA_SCAN_VERT">SCAN VERT</option>
+  <option value="PA_SCAN_VERTX">SCAN VERTX</option>
+  <option value="PA_GROW_UP">GROW UP</option>
+  <option value="PA_GROW_DOWN">GROW DOWN</option>   
+
+ */
+
+  
 }
 
 

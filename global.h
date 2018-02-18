@@ -82,7 +82,7 @@ struct strStory {
   byte InEffect; // Incoming text effect (see numbers of texteffect_t)
   byte OutEffect; // Fadeout text effect (see numbers of texteffect_t)
   byte CountTime; // Counter time unit to calculate target date (1=seconds, 2=minutes, 3=hours, 4=days)
-  byte DateYear; // Target Date Year
+  int DateYear; // Target Date Year
   byte DateMonth; // Target Date Month
   byte DateDay; // Target Date Day
   byte DateHour; // Target Date Hour
@@ -455,19 +455,19 @@ boolean ReadStory()
     story0.InEffect = EEPROM.read(662);
     story0.OutEffect = EEPROM.read(663);
     story0.CountTime = EEPROM.read(664);
-    story0.DateYear = EEPROM.read(665);
-    story0.DateMonth = EEPROM.read(666);
-    story0.DateDay = EEPROM.read(667);
-    story0.DateHour = EEPROM.read(668);
-    story0.DateMinute = EEPROM.read(669);
-    story0.MQTTtopic = ReadStringFromEEPROM(670);
-    story0.MQTThost = ReadStringFromEEPROM(798);
-    story0.MQTTuser = ReadStringFromEEPROM(926);
-    story0.MQTTpwd = ReadStringFromEEPROM(950);
-    story0.MQTTport = ReadStringFromEEPROM(962);
-    story0.MQTTssl = EEPROM.read(967); //1byte
-    story0.MQTTsslport = ReadStringFromEEPROM(968); //5bytes 
-    story0.MQTTwebsport = ReadStringFromEEPROM(973); //5bytes 
+    story0.DateYear = EEPROMReadint(665);
+    story0.DateMonth = EEPROM.read(667);
+    story0.DateDay = EEPROM.read(668);
+    story0.DateHour = EEPROM.read(669);
+    story0.DateMinute = EEPROM.read(670);
+    story0.MQTTtopic = ReadStringFromEEPROM(671);
+    story0.MQTThost = ReadStringFromEEPROM(799);
+    story0.MQTTuser = ReadStringFromEEPROM(927);
+    story0.MQTTpwd = ReadStringFromEEPROM(951);
+    story0.MQTTport = ReadStringFromEEPROM(963);
+    story0.MQTTssl = EEPROM.read(968); //1byte
+    story0.MQTTsslport = ReadStringFromEEPROM(969); //5bytes 
+    story0.MQTTwebsport = ReadStringFromEEPROM(974); //5bytes 
     return true;
   }
   else
@@ -498,18 +498,18 @@ void WriteStory()
   EEPROM.write(663,story0.OutEffect);
   EEPROM.write(664,story0.CountTime);
   EEPROM.write(665,story0.DateYear);
-  EEPROM.write(666,story0.DateMonth);
-  EEPROM.write(667,story0.DateDay);
-  EEPROM.write(668,story0.DateHour);
-  EEPROM.write(669,story0.DateMinute);  
-  WriteStringToEEPROM(670,story0.MQTTtopic); //128bytes
-  WriteStringToEEPROM(798,story0.MQTThost); //128bytes
-  WriteStringToEEPROM(926,story0.MQTTuser); //24bytes
-  WriteStringToEEPROM(950,story0.MQTTpwd); //12bytes
-  WriteStringToEEPROM(962,story0.MQTTport); //5bytes
-  EEPROM.write(967,story0.MQTTssl); //1byte
-  WriteStringToEEPROM(968,story0.MQTTsslport); //5bytes  
-  WriteStringToEEPROM(973,story0.MQTTwebsport); //5bytes
+  EEPROM.write(667,story0.DateMonth);
+  EEPROM.write(668,story0.DateDay);
+  EEPROM.write(669,story0.DateHour);
+  EEPROM.write(670,story0.DateMinute);  
+  WriteStringToEEPROM(671,story0.MQTTtopic); //128bytes
+  WriteStringToEEPROM(799,story0.MQTThost); //128bytes
+  WriteStringToEEPROM(927,story0.MQTTuser); //24bytes
+  WriteStringToEEPROM(951,story0.MQTTpwd); //12bytes
+  WriteStringToEEPROM(963,story0.MQTTport); //5bytes
+  EEPROM.write(968,story0.MQTTssl); //1byte
+  WriteStringToEEPROM(969,story0.MQTTsslport); //5bytes  
+  WriteStringToEEPROM(974,story0.MQTTwebsport); //5bytes
   EEPROM.commit();
 }
 
@@ -556,13 +556,44 @@ void SetConfig()
     config.SensRefreshTime = 1;
     WriteConfig();
     Serial.println("General config applied");
+    
+    story0.StoryOrderNo = 1; // Number for order of storybook 
+    story0.LastStoryNo = 1; // Last number for order of storybook 
+    story0.AISOn = 1; // Auto Intensity Sensor On (1=active)
+    story0.AISmin = 4;  // AIS minimum level (0...15) 
+    story0.AISmax = 12;  // AIS maximum level (0...15)
+    story0.DisplayIntensity = 12; // static intensity level if AIS disabled (0...15)
+  
+    story0.ActionNo = 0; // Display action (Textmessage, Temperature, Humidifier, Light, Current Time, Current Date, Target Date, Countdown to Date, MQTT Topic, Nerd News, Animation: PacMan, Smiley, Bouncing Ball, etc.)
+    story0.Textmessage = "...Textnachricht";
+    story0.TextSpeed = 100; // Speed (ms/frame)
+    story0.TextDirection = 0; // Direction (0=left, 1=right)
+    story0.TextOrientation = 2; // Text Orientation (1=left, 2=center, 3=right)
+    story0.DisplayTime = 3000; // Time for action Parola=[pause] (ms)
+    story0.NextTime = 500; // Blank time to begin next action (ms) 
+    story0.InEffect = 1; // Incoming text effect (see numbers of texteffect_t)
+    story0.OutEffect = 1; // Fadeout text effect (see numbers of texteffect_t)
+    story0.CountTime = 2; // Counter time unit to calculate target date (1=seconds, 2=minutes, 3=hours, 4=days)
+    story0.DateYear = 2018; // Target Date Year
+    story0.DateMonth = 4; // Target Date Month
+    story0.DateDay = 7; // Target Date Day
+    story0.DateHour = 12; // Target Date Hour
+    story0.DateMinute = 0; // Target Date Minute
+
+    story0.MQTTtopic = "FabInfo/news"; // MQTT Topic to subscribe
+    story0.MQTThost = "...fablab-bayreuth.de"; // MQTT broker host
+    story0.MQTTuser = "...MQTT user"; // MQTT User data
+    story0.MQTTpwd = "...MQTT user PWD"; // MQTT Password data
+    story0.MQTTport = "1883"; // MQTT Port
+    story0.MQTTssl = 0; // SSL active (1=active) 
+    story0.MQTTsslport = "8883"; // MQTT SSL Port  
+    story0.MQTTwebsport = "8883"; //Websockets port (for TSL only)
+
+    WriteStory();
+    Serial.println("Story 1 config prepared");
   }
 
 }
-
-
-
-
 
 
 void SetDefaultConfig()
